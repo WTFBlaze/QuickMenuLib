@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31606.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PepsiLib", "PepsiLib\PepsiLib.csproj", "{24A3606D-5856-44A6-96A1-2820C6EEA792}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PepsiLibTestMod", "PepsiLibTestMod\PepsiLibTestMod.csproj", "{6D94B044-0B1B-4B98-8679-B26B5F7E8B64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24A3606D-5856-44A6-96A1-2820C6EEA792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A3606D-5856-44A6-96A1-2820C6EEA792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A3606D-5856-44A6-96A1-2820C6EEA792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A3606D-5856-44A6-96A1-2820C6EEA792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D94B044-0B1B-4B98-8679-B26B5F7E8B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D94B044-0B1B-4B98-8679-B26B5F7E8B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D94B044-0B1B-4B98-8679-B26B5F7E8B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D94B044-0B1B-4B98-8679-B26B5F7E8B64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67DB403D-D76A-4489-BED5-0E36B28F3DCA}
+	EndGlobalSection
+EndGlobal
