@@ -10,10 +10,6 @@ namespace PepsiLib
 {
     public static class Utils
     {
-        //public static QuickMenuButton AddButton(this QuickMenuCategory category)
-        //{
-        //    return null;
-        //}
         public static void RemoveVRCPlus()
         {
             try
