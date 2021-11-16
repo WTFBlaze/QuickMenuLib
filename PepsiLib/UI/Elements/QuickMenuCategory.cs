@@ -24,7 +24,7 @@ namespace PepsiLib.UI.Elements
     {
         private static GameObject ButtonRowTemplate => QuickMenuTemplates.GetButtonRowTemplate();
 
-        public QuickMenuButtonContainer(string name, Transform parent = null, bool vertical = false) : base(ButtonRowTemplate, (parent == null ? ButtonRowTemplate.transform.parent : parent), $"Buttons_{name}")
+        public QuickMenuButtonContainer(string name, Transform parent = null) : base(ButtonRowTemplate, (parent == null ? ButtonRowTemplate.transform.parent : parent), $"Buttons_{name}")
         {
             foreach (var button in RectTransform)
             {
@@ -40,13 +40,6 @@ namespace PepsiLib.UI.Elements
 
             gridLayout.padding.top = 8;
             gridLayout.padding.left = 64;
-
-            if (vertical)
-            {
-                Object.DestroyImmediate(GameObject.GetComponent<GridLayoutGroup>());
-                var vlg = ButtonRowTemplate.AddComponent<VerticalLayoutGroup>();
-                vlg.childControlWidth = true;
-            }
         }
     }
 
@@ -59,11 +52,11 @@ namespace PepsiLib.UI.Elements
 
         public string MyName { get; }
 
-        public QuickMenuCategory(string name, string title, Transform parent = null, int? siblingIndex = null, bool vertical = false)
+        public QuickMenuCategory(string name, string title, Transform parent = null, int? siblingIndex = null)
         {
             MyName = name;
             MyHeader = new QuickMenuHeader(name, title, parent);
-            MyButtonContainer = new QuickMenuButtonContainer(name, parent, vertical);
+            MyButtonContainer = new QuickMenuButtonContainer(name, parent);
             if (siblingIndex != null)
             {
                 MyHeader.RectTransform.SetSiblingIndex(siblingIndex.Value);
@@ -92,11 +85,6 @@ namespace PepsiLib.UI.Elements
             }
             SubPages.Add(menu);
             return menu;
-        }
-
-        public QuickMenuPage GetMenuPage(string name)
-        {
-            return SubPages.FirstOrDefault(m => m.Name == $"Menu_{name}");
         }
     }
 }

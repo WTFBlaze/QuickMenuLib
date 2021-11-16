@@ -52,6 +52,8 @@ namespace PepsiLib.UI.Patches
                 MelonCoroutines.Start(InitializeTargetMenu());
                 Initialized = true;
             }
+
+            //Waits until the user selects someone. Could probably directly patch into the Select User method.
             WaitingForSelectedUser = MelonCoroutines.Start(SetSelectedUser());
         }
 

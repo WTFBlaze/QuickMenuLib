@@ -140,9 +140,9 @@ namespace PepsiLib.UI.Elements
             return menu;
         }
 
-        public QuickMenuCategory AddMenuCategory(string name, string text, bool vertical = false)
+        public QuickMenuCategory AddMenuCategory(string name, string text)
         {
-            return new QuickMenuCategory(name, text, MyContainer, null, vertical);
+            return new QuickMenuCategory(name, text, MyContainer, null);
         }
     }
 }
