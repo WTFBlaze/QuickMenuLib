@@ -1,12 +1,13 @@
 ﻿using MelonLoader;
 using PepsiLib.UI;
 using PepsiLib.UI.Patches;
-using RinButtonAPI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using VRC.UI.Elements;
+using PepsiLib.UI.Elements;
+
 using static MelonLoader.MelonLogger;
 
 namespace PepsiLib

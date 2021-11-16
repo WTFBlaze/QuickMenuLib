@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RinButtonAPI
+namespace PepsiLib.UI.Elements
 {
     public class QuickMenuSlider : UIElement
     {

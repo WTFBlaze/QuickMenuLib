@@ -1,10 +1,9 @@
-﻿using PepsiLib.UI;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.UI.Elements.Controls;
 
-namespace RinButtonAPI
+namespace PepsiLib.UI.Elements
 {
     public class QuickMenuTabButton : UIElement
     {

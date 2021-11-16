@@ -1,5 +1,4 @@
-﻿
-using PepsiLib.UI;
+﻿using PepsiLib.UI;
 using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;

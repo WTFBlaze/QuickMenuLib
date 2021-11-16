@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using MelonLoader;
-using RinButtonAPI;
+using PepsiLib;
+using PepsiLib.UI.Elements;
 using System;
 using System.Collections;
 using System.Reflection;
@@ -15,20 +16,11 @@ namespace PepsiLib.UI.Patches
     {
         internal static HarmonyMethod GetLocalPatch(Type patchType, string name)
         {
-            if (patchType == null)
-            {
-
-
-                return null;
-            }
+            if (patchType == null) return null;
 
             MethodInfo patchMethod = patchType.GetMethod(name, BindingFlags.Static | BindingFlags.NonPublic);
 
-            if (patchMethod == null)
-            {
-
-                return null;
-            }
+            if (patchMethod == null) return null;
 
             return new HarmonyMethod(patchMethod);
         }

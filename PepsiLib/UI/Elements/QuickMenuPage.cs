@@ -1,14 +1,13 @@
-﻿using PepsiLib.UI;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.UI.Elements;
+
 using Object = UnityEngine.Object;
 
-namespace RinButtonAPI
+namespace PepsiLib.UI.Elements
 {
     public class QuickMenuPage : UIElement
     {

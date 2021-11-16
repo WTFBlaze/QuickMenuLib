@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RinButtonAPI
+namespace PepsiLib
 {
 
     /// <summary>
