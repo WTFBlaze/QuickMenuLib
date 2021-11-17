@@ -95,6 +95,12 @@ The Pages PepsiLib creates for itself are exposed to your Mod as well.
         public static QuickMenuWingMenu RightWingMenu = null;
 ```
 
+# Planned Features
+* Proper Documentation Page
+* Support for Client Logos to either:
+    - Have Logo + text
+    - Replace the button with the Logo completely
+
 # Credit
 The way we add controls is based on how RequiDev does it in [ReModCE](https://github.com/RequiDev/ReModCE) <br>
 This Project is inspired by Knah's [UiExpansionKit](https://github.com/knah/vrcmods)
