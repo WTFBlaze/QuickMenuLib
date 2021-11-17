@@ -46,6 +46,15 @@ namespace PepsiLibTestMod
     }
 }
 ```
+
+Then simply register your custom Mod Menu Class:
+```cs
+        public override void OnApplicationStart()
+        {
+            PepsiLib.PepsiLibMod.RegisterModMenu(new MyModMenu());
+        }
+```
+
 A Look at what PepsiLib provides your Menu with, by looking at the ModMenu Class.
 ```cs
 using PepsiLib.UI.Elements;
