@@ -16,8 +16,8 @@ namespace PepsiLib.UI.Elements
 
         private readonly Button MyButton;
 
-        public QuickMenuButton(string name, string text, string tooltip, Action onClick, Transform parent, Sprite sprite = null) : base(ButtonTemplate, parent,
-            $"Button_{name}")
+        public QuickMenuButton( string text, string tooltip, Action onClick, Transform parent, Sprite sprite = null) : base(ButtonTemplate, parent,
+            $"Button_{text}")
         {
             MyText = GameObject.GetComponentInChildren<TextMeshProUGUI>();
             MyText.text = text;
@@ -74,7 +74,7 @@ namespace PepsiLib.UI.Elements
 
         private bool LastValue;
 
-        public QuickMenuToggleButton(string name, string text, string tooltip, Action<bool> onToggle, Transform parent, bool defaultValue = false) : base(ToggleButtonTemplate, parent, $"Button_Toggle{name}")
+        public QuickMenuToggleButton(string text, string tooltip, Action<bool> onToggle, Transform parent, bool defaultValue = false) : base(ToggleButtonTemplate, parent, $"Button_Toggle{text}")
         {
             var iconOn = RectTransform.Find("Icon_On").GetComponent<Image>();
             iconOn.sprite = OnIconSprite;
@@ -93,7 +93,7 @@ namespace PepsiLib.UI.Elements
             tmp.m_fontColor = new Color(0.4157f, 0.8902f, 0.9765f, 1f);
             tmp.m_htmlColor = new Color(0.4157f, 0.8902f, 0.9765f, 1f);
 
-            var uiTooltip = GameObject.GetComponent<VRC.UI.Elements.Tooltips.UiTooltip>();
+            var uiTooltip = GameObject.GetComponent<VRC.UI.Elements.Tooltips.UiToggleTooltip>();
             uiTooltip.field_Public_String_0 = tooltip;
             uiTooltip.field_Public_String_1 = tooltip;
 

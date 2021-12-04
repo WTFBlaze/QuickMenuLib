@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.UI.Elements;
-
+using VRC.UI.Elements.Menus;
 using NewQuickMenu = VRC.UI.Elements.QuickMenu;
 
 namespace PepsiLib.UI
@@ -11,21 +11,35 @@ namespace PepsiLib.UI
     {
         private static NewQuickMenu _quickMenuInstance;
 
-        public static NewQuickMenu Instance
+        public static NewQuickMenu GetQuickMenu
         {
             get
             {
-                _quickMenuInstance = Resources.FindObjectsOfTypeAll<NewQuickMenu>()[0];
+                if(_quickMenuInstance == null)
+                {
+                    _quickMenuInstance = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)").GetComponent<NewQuickMenu>();
+                }
                 return _quickMenuInstance;
             }
         }
 
-        public static void ShowAlert(this NewQuickMenu menu, string message)
-        {
-            menu.Method_Public_Virtual_Final_New_Void_String_2(message);
-        }
+        private static MenuStateController _menuStateController;
+        public static MenuStateController MenuStateController => GetQuickMenu.prop_MenuStateController_0;
 
-        public static MenuStateController MenuStateCtrl => Instance.field_Protected_MenuStateController_0;
+        private static SelectedUserMenuQM _selectedUserMenuQM;
+
+        public static SelectedUserMenuQM SelectedUserMenu
+        {
+            get
+            {
+                if(_selectedUserMenuQM == null)
+                {
+                    _selectedUserMenuQM = GetQuickMenu.field_Public_Transform_0.Find("Window/QMParent/Menu_SelectedUser_Local").GetComponent<SelectedUserMenuQM>();
+                }
+
+                return _selectedUserMenuQM;
+            }
+        }
 
         private static Wing[] _wings;
         private static Wing _leftWing;
@@ -35,7 +49,10 @@ namespace PepsiLib.UI
         {
             get
             {
-                _wings = Resources.FindObjectsOfTypeAll<Wing>();
+                if (_wings == null || _wings.Length == 0)
+                {
+                    _wings = GameObject.Find("UserInterface").GetComponentsInChildren<Wing>(true);
+                }
 
                 return _wings;
             }
@@ -73,14 +90,14 @@ namespace PepsiLib.UI
         private static GameObject modalReference;
         private static GameObject WingMenuReference;
         private static GameObject WingButtonReference;
-        private static Sprite ToggleOnReference;
+        private static Sprite toggleOnReference;
         private static GameObject SliderReference;
 
         internal static GameObject GetSliderPrefab()
         {
             if (SliderReference == null)
             {
-                SliderReference = QuickMenuExtensions.Instance.GetComponentsInChildren<Slider>(true).ToList().Find(s => s.transform.parent.name == "VolumeSlider_Master").transform.parent.gameObject;
+                SliderReference = QuickMenuExtensions.GetQuickMenu.GetComponentsInChildren<Slider>(true).ToList().Find(s => s.transform.parent.name == "VolumeSlider_Master").transform.parent.gameObject;
             }
             return SliderReference;
         }
@@ -89,17 +106,7 @@ namespace PepsiLib.UI
         {
             if (WingMenuReference == null)
             {
-                Transform[] buttons = QuickMenuExtensions.LeftWing.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "WingMenu")
-                    {
-                        WingMenuReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                WingMenuReference = QuickMenuExtensions.LeftWing.field_Public_RectTransform_0.Find("WingMenu").gameObject;
             }
             return WingMenuReference;
         }
@@ -108,17 +115,7 @@ namespace PepsiLib.UI
         {
             if (WingButtonReference == null)
             {
-                Button[] buttons = QuickMenuExtensions.LeftWing.GetComponentsInChildren<Button>(true);
-
-                foreach (Button button in buttons)
-                {
-                    if (button.name == "Button_Profile")
-                    {
-                        WingButtonReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                WingButtonReference = QuickMenuExtensions.LeftWing.transform.Find("Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup/Button_Profile").gameObject;
             }
             return WingButtonReference;
         }
@@ -127,17 +124,9 @@ namespace PepsiLib.UI
         {
             if (pageButtonReference == null)
             {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Page_Settings")
-                    {
-                        pageButtonReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                pageButtonReference =
+                    Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Settings");
             }
 
             return pageButtonReference;
@@ -147,17 +136,9 @@ namespace PepsiLib.UI
         {
             if (headerReference == null)
             {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Header_QuickActions")
-                    {
-                        headerReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                headerReference =
+                    Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Header_QuickActions");
             }
 
             return headerReference;
@@ -167,57 +148,20 @@ namespace PepsiLib.UI
         {
             if (buttonRowReference == null)
             {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Buttons_QuickActions")
-                    {
-                        buttonRowReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                buttonRowReference = 
+                    Utils.FindInactive(
+                    "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions");
             }
 
             return buttonRowReference;
-        }
-
-        internal static GameObject GetSpacersTemplate()
-        {
-            if (spacersReference == null)
-            {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Spacer_8pt")
-                    {
-                        spacersReference = button.gameObject;
-
-                        break;
-                    }
-                };
-            }
-
-            return spacersReference;
         }
 
         internal static GameObject GetSingleButtonTemplate()
         {
             if (singleButtonReference == null)
             {
-                Button[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Button>(true);
-
-                foreach (Button button in buttons)
-                {
-                    if (button.name == "Button_Worlds")
-                    {
-                        singleButtonReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                singleButtonReference = Utils.FindInactive(
+                    "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Respawn");
             }
 
             return singleButtonReference;
@@ -227,17 +171,9 @@ namespace PepsiLib.UI
         {
             if (toggleButtonReference == null)
             {
-                Toggle[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Toggle>(true);
-
-                foreach (Toggle button in buttons)
-                {
-                    if (button.name == "Button_ToggleTooltips")
-                    {
-                        toggleButtonReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                toggleButtonReference =
+                    Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Settings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/Buttons_UI_Elements_Row_1/Button_ToggleQMInfo");
             }
 
             return toggleButtonReference;
@@ -245,59 +181,20 @@ namespace PepsiLib.UI
 
         internal static Sprite GetToggleOnIconTemplate()
         {
-            if (ToggleOnReference == null)
+            if (toggleOnReference == null)
             {
-                Image[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Image>(true);
-
-                foreach (Image button in buttons)
-                {
-                    if (button.transform.parent.name == "Panel_NoNotifications_Message")
-                    {
-                        ToggleOnReference = button.sprite;
-
-                        break;
-                    }
-                };
+                toggleOnReference = Utils.FindInactive(
+                    "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Notifications/Panel_NoNotifications_Message/Icon").GetComponent<Image>().sprite;
             }
 
-            return ToggleOnReference;
-        }
-
-        internal static GameObject GetNestedMenuTemplate()
-        {
-            if (nestedMenuReference == null)
-            {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Menu_DevTools")
-                    {
-                        nestedMenuReference = button.gameObject;
-
-                        break;
-                    }
-                };
-            }
-
-            return nestedMenuReference;
+            return toggleOnReference;
         }
 
         internal static GameObject GetMenuTemplate()
         {
             if (MenuReference == null)
             {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Menu_DevTools")
-                    {
-                        MenuReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                MenuReference = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_DevTools");
             }
 
             return MenuReference;
@@ -307,17 +204,7 @@ namespace PepsiLib.UI
         {
             if (modalReference == null)
             {
-                Transform[] buttons = QuickMenuExtensions.Instance.GetComponentsInChildren<Transform>(true);
-
-                foreach (Transform button in buttons)
-                {
-                    if (button.name == "Modal_AddMessage")
-                    {
-                        modalReference = button.gameObject;
-
-                        break;
-                    }
-                };
+                modalReference = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Modal_AddMessage");
             }
 
             return modalReference;

@@ -1,4 +1,6 @@
-﻿using PepsiLib.UI.Elements;
+﻿using PepsiLib.UI;
+using PepsiLib.UI.Elements;
+using UnityEngine;
 using VRC.DataModel;
 
 namespace PepsiLib
@@ -13,11 +15,35 @@ namespace PepsiLib
         /// </summary>
         public virtual string MenuName => "Default Menu";
 
+        public Sprite Logo = null;
+
         public QuickMenuPage MyModMenu = null;
         public QuickMenuWingMenu MyLeftWingMenu = null;
         public QuickMenuWingMenu MyRightWingMenu = null;
         public QuickMenuPage MyTargetMenu = null;
-        public IUser SelectedUser = null;
+
+        private IUser _lastSelectedUser;
+
+        /// <summary>
+        /// Gets the currently selected user. Caches last selected user. Returns null if the menu is hidden and there is no cache.
+        /// </summary>
+        public IUser SelectedUser
+        {
+            get
+            {
+                if(!QuickMenuExtensions.SelectedUserMenu.isActiveAndEnabled && _lastSelectedUser == null)
+                {
+                    return null;
+                }
+
+                if(_lastSelectedUser == null)
+                {
+                    _lastSelectedUser = QuickMenuExtensions.SelectedUserMenu.field_Private_IUser_0;
+                }
+
+                return _lastSelectedUser;
+            }
+        }
 
         public virtual void OnQuickMenuInitialized() { }
         public virtual void OnWingMenuLeftInitialized() { }

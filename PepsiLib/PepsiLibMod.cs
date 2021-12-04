@@ -1,6 +1,5 @@
 ﻿using MelonLoader;
 using PepsiLib.UI;
-using PepsiLib.UI.Patches;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +8,8 @@ using VRC.UI.Elements;
 using PepsiLib.UI.Elements;
 
 using static MelonLoader.MelonLogger;
+using VRC.UI.Core;
+using UnityEngine;
 
 namespace PepsiLib
 {
@@ -27,32 +28,14 @@ namespace PepsiLib
 
         public override void OnApplicationStart()
         {
-            Msg("Preparing QuickMenu Hooks");
-            QuickMenuPatch.PatchQuickMenu();
-
             OnUIManagerInitialized(delegate
             {
                 string ModValue = ModMenus.Count == 1 ? "Mod" : "Mods";
-
                 Msg($"Found {ModMenus.Count} {ModValue} using PepsiLib.");
-
-                FixLaunchpadScrolling();
+                
+                PagePreparer.PrepareEverything();
+                Utils.RemoveVrcPlus();
             });
-        }
-
-        //https://github.com/RequiDev/RemodCE
-        private void FixLaunchpadScrolling()
-        {
-            var dashboard = QuickMenuExtensions.Instance.field_Public_Transform_0.Find("Window/QMParent/Menu_Dashboard").GetComponent<UIPage>();
-            var scrollRect = dashboard.GetComponentInChildren<ScrollRect>();
-            var dashboardScrollbar = scrollRect.transform.Find("Scrollbar").GetComponent<Scrollbar>();
-
-            var dashboardContent = scrollRect.content;
-            dashboardContent.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
-
-            scrollRect.enabled = true;
-            scrollRect.verticalScrollbar = dashboardScrollbar;
-            scrollRect.viewport.GetComponent<RectMask2D>().enabled = true;
         }
 
         /// <summary>
@@ -71,7 +54,15 @@ namespace PepsiLib
 
         internal IEnumerator OnUiManagerInitCoro(Action code)
         {
-            while (VRCUiManager.prop_VRCUiManager_0 == null)
+            while (VRCUiManager.prop_VRCUiManager_0 == null) yield return null;
+
+            //early init
+
+            while (UIManager.field_Private_Static_UIManager_0 == null) 
+                yield return null;
+            while (GameObject.Find("UserInterface").GetComponentInChildren<VRC.UI.Elements.QuickMenu>(true) == null) 
+                yield return null;
+            while (QuickMenuExtensions.MenuStateController == null) 
                 yield return null;
             code();
         }

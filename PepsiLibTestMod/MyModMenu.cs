@@ -1,6 +1,5 @@
 ﻿using MelonLoader;
 using PepsiLib;
-using PepsiLib.UI;
 
 namespace PepsiLibTestMod
 {
@@ -10,7 +9,7 @@ namespace PepsiLibTestMod
         public override void OnQuickMenuInitialized()
         {
             var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff");
-            category.AddButton("TestButton", "Test", "This is a test using PepsiLib!", () =>
+            category.AddButton("Test", "This is a test using PepsiLib!", () =>
             {
                 MelonLogger.Msg("Test Button!");
             });
@@ -26,7 +25,7 @@ namespace PepsiLibTestMod
         }
         public override void OnTargetMenuInitialized()
         {
-            MyTargetMenu.AddButton("TestButton", "Test", "Test using PepsiLib!", () =>
+            MyTargetMenu.AddButton("Test", "Test using PepsiLib!", () =>
             {
                 MelonLogger.Msg(SelectedUser.prop_String_0);
             });

@@ -50,13 +50,10 @@ namespace PepsiLib.UI.Elements
 
         private readonly List<QuickMenuPage> SubPages = new List<QuickMenuPage>();
 
-        public string MyName { get; }
-
-        public QuickMenuCategory(string name, string title, Transform parent = null, int? siblingIndex = null)
+        public QuickMenuCategory(string title, Transform parent = null, int? siblingIndex = null)
         {
-            MyName = name;
-            MyHeader = new QuickMenuHeader(name, title, parent);
-            MyButtonContainer = new QuickMenuButtonContainer(name, parent);
+            MyHeader = new QuickMenuHeader($"Header_{title}", title, parent);
+            MyButtonContainer = new QuickMenuButtonContainer($"Container_{title}", parent);
             if (siblingIndex != null)
             {
                 MyHeader.RectTransform.SetSiblingIndex(siblingIndex.Value);
@@ -64,24 +61,24 @@ namespace PepsiLib.UI.Elements
             }
         }
 
-        public QuickMenuButton AddButton(string name, string text, string tooltip, Action onClick, Sprite sprite = null)
+        public QuickMenuButton AddButton(string text, string tooltip, Action onClick, Sprite sprite = null)
         {
-            var button = new QuickMenuButton(name, text, tooltip, onClick, MyButtonContainer.RectTransform, sprite);
+            var button = new QuickMenuButton(text, tooltip, onClick, MyButtonContainer.RectTransform, sprite);
             return button;
         }
 
         public QuickMenuToggleButton AddToggle(string name, string text, string tooltip, Action<bool> onToggle, bool defaultpos = false)
         {
-            var toggle = new QuickMenuToggleButton(name, text, tooltip, onToggle, MyButtonContainer.RectTransform, defaultpos);
+            var toggle = new QuickMenuToggleButton(text, tooltip, onToggle, MyButtonContainer.RectTransform, defaultpos);
             return toggle;
         }
 
-        public QuickMenuPage AddMenuPage(string name, string text, string tooltip = "", Sprite sprite = null, bool grid = false, bool button = true)
+        public QuickMenuPage AddMenuPage(string text, string tooltip = "", Sprite sprite = null, bool grid = false, bool button = true)
         {
-            var menu = new QuickMenuPage(name, text, false, grid);
+            var menu = new QuickMenuPage(text, false, grid);
             if (button)
             {
-                AddButton(name, text, string.IsNullOrEmpty(tooltip) ? $"Open the {text} menu" : tooltip, menu.Open, sprite);
+                AddButton(text, string.IsNullOrEmpty(tooltip) ? $"Open the {text} menu" : tooltip, menu.Open, sprite);
             }
             SubPages.Add(menu);
             return menu;

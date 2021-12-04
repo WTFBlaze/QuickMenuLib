@@ -13,7 +13,7 @@ namespace PepsiLib.UI.Elements
         {
             var menuTab = RectTransform.GetComponent<MenuTab>();
             menuTab.field_Public_String_0 = $"QuickMenu{pageName}";
-            menuTab.field_Private_MenuStateController_0 = QuickMenuExtensions.MenuStateCtrl;
+            menuTab.field_Private_MenuStateController_0 = QuickMenuExtensions.MenuStateController;
 
             var button = GameObject.GetComponent<Button>();
             button.onClick = new Button.ButtonClickedEvent();
