@@ -1,5 +1,6 @@
 ﻿using MelonLoader;
 using PepsiLib;
+using VRC.Core;
 
 namespace PepsiLibTestMod
 {

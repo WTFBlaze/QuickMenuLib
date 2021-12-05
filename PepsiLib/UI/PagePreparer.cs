@@ -1,6 +1,7 @@
 ﻿using PepsiLib.UI.Elements;
 using System;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using static MelonLoader.MelonLogger;
 
@@ -55,11 +56,11 @@ namespace PepsiLib.UI
 
                 PepsiLibMod.TargetMenu = new QuickMenuPage("PepsiLib-Targets", false, true);
 
-                MainCategory.AddButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.MainMenu.Open);
+                MainCategory.AddButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.TargetMenu.Open);
 
                 foreach (var menu in PepsiLibMod.ModMenus)
                 {
-                    menu.MyModMenu = PepsiLibMod.MainMenu.AddSubMenu(menu.MenuName, $"Content for {menu.MenuName}", false, menu.Logo);
+                    menu.MyTargetMenu = PepsiLibMod.TargetMenu.AddSubMenu($"{menu.MenuName}-Targets", $"Content for {menu.MenuName}", false, menu.Logo);
                     try
                     {
                         menu.OnTargetMenuInitialized();

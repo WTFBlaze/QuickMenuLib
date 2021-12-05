@@ -94,6 +94,9 @@
     <Reference Include="VRC.Utility">
       <HintPath>/home/rin/.local/share/Steam/steamapps/common/VRChat/MelonLoader/Managed\VRC.Utility.dll</HintPath>
     </Reference>
+    <Reference Include="VRCCore-Standalone, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\.local\share\Steam\steamapps\common\VRChat\MelonLoader\Managed\VRCCore-Standalone.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyModMenu.cs" />

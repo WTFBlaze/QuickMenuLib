@@ -1,6 +1,7 @@
 ﻿using PepsiLib.UI;
 using PepsiLib.UI.Elements;
 using UnityEngine;
+using VRC.Core;
 using VRC.DataModel;
 
 namespace PepsiLib
@@ -31,15 +32,7 @@ namespace PepsiLib
         {
             get
             {
-                if(!QuickMenuExtensions.SelectedUserMenu.isActiveAndEnabled && _lastSelectedUser == null)
-                {
-                    return null;
-                }
-
-                if(_lastSelectedUser == null)
-                {
-                    _lastSelectedUser = QuickMenuExtensions.SelectedUserMenu.field_Private_IUser_0;
-                }
+                _lastSelectedUser = QuickMenuExtensions.SelectedUserMenu.field_Private_IUser_0;
 
                 return _lastSelectedUser;
             }

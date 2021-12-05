@@ -79,135 +79,135 @@ namespace PepsiLib.UI
 
     internal class QuickMenuTemplates
     {
-        private static GameObject pageButtonReference;
-        private static GameObject headerReference;
-        private static GameObject buttonRowReference;
-        private static GameObject spacersReference;
-        private static GameObject singleButtonReference;
-        private static GameObject toggleButtonReference;
-        private static GameObject nestedMenuReference;
-        private static GameObject MenuReference;
-        private static GameObject modalReference;
-        private static GameObject WingMenuReference;
-        private static GameObject WingButtonReference;
-        private static Sprite toggleOnReference;
-        private static GameObject SliderReference;
+        private static GameObject _pageButtonReference;
+        private static GameObject _headerReference;
+        private static GameObject _buttonRowReference;
+        private static GameObject _singleButtonReference;
+        private static GameObject _toggleButtonReference;
+        private static GameObject _menuReference;
+        private static GameObject _modalReference;
+        private static GameObject _wingMenuReference;
+        private static GameObject _wingButtonReference;
+        private static Sprite _toggleOnReference;
+        private static GameObject _sliderReference;
 
         internal static GameObject GetSliderPrefab()
         {
-            if (SliderReference == null)
+            if (_sliderReference == null)
             {
-                SliderReference = QuickMenuExtensions.GetQuickMenu.GetComponentsInChildren<Slider>(true).ToList().Find(s => s.transform.parent.name == "VolumeSlider_Master").transform.parent.gameObject;
+                _sliderReference =
+                    Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_AudioSettings/Content/Audio/VolumeSlider_Master");
             }
-            return SliderReference;
+            return _sliderReference;
         }
 
         internal static GameObject GetWingMenuTemplate()
         {
-            if (WingMenuReference == null)
+            if (_wingMenuReference == null)
             {
-                WingMenuReference = QuickMenuExtensions.LeftWing.field_Public_RectTransform_0.Find("WingMenu").gameObject;
+                _wingMenuReference = QuickMenuExtensions.LeftWing.field_Public_RectTransform_0.Find("WingMenu").gameObject;
             }
-            return WingMenuReference;
+            return _wingMenuReference;
         }
 
         internal static GameObject GetWingButtonTemplate()
         {
-            if (WingButtonReference == null)
+            if (_wingButtonReference == null)
             {
-                WingButtonReference = QuickMenuExtensions.LeftWing.transform.Find("Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup/Button_Profile").gameObject;
+                _wingButtonReference = QuickMenuExtensions.LeftWing.transform.Find("Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup/Button_Profile").gameObject;
             }
-            return WingButtonReference;
+            return _wingButtonReference;
         }
 
         internal static GameObject GetPageButtonTemplate()
         {
-            if (pageButtonReference == null)
+            if (_pageButtonReference == null)
             {
-                pageButtonReference =
+                _pageButtonReference =
                     Utils.FindInactive(
                         "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/Page_Buttons_QM/HorizontalLayoutGroup/Page_Settings");
             }
 
-            return pageButtonReference;
+            return _pageButtonReference;
         }
 
         internal static GameObject GetHeaderTemplate()
         {
-            if (headerReference == null)
+            if (_headerReference == null)
             {
-                headerReference =
+                _headerReference =
                     Utils.FindInactive(
                         "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Header_QuickActions");
             }
 
-            return headerReference;
+            return _headerReference;
         }
 
         internal static GameObject GetButtonRowTemplate()
         {
-            if (buttonRowReference == null)
+            if (_buttonRowReference == null)
             {
-                buttonRowReference = 
+                _buttonRowReference = 
                     Utils.FindInactive(
                     "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions");
             }
 
-            return buttonRowReference;
+            return _buttonRowReference;
         }
 
         internal static GameObject GetSingleButtonTemplate()
         {
-            if (singleButtonReference == null)
+            if (_singleButtonReference == null)
             {
-                singleButtonReference = Utils.FindInactive(
+                _singleButtonReference = Utils.FindInactive(
                     "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Respawn");
             }
 
-            return singleButtonReference;
+            return _singleButtonReference;
         }
 
         internal static GameObject GetToggleButtonTemplate()
         {
-            if (toggleButtonReference == null)
+            if (_toggleButtonReference == null)
             {
-                toggleButtonReference =
+                _toggleButtonReference =
                     Utils.FindInactive(
                         "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Settings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/Buttons_UI_Elements_Row_1/Button_ToggleQMInfo");
             }
 
-            return toggleButtonReference;
+            return _toggleButtonReference;
         }
 
         internal static Sprite GetToggleOnIconTemplate()
         {
-            if (toggleOnReference == null)
+            if (_toggleOnReference == null)
             {
-                toggleOnReference = Utils.FindInactive(
+                _toggleOnReference = Utils.FindInactive(
                     "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Notifications/Panel_NoNotifications_Message/Icon").GetComponent<Image>().sprite;
             }
 
-            return toggleOnReference;
+            return _toggleOnReference;
         }
 
         internal static GameObject GetMenuTemplate()
         {
-            if (MenuReference == null)
+            if (_menuReference == null)
             {
-                MenuReference = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_DevTools");
+                _menuReference = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_DevTools");
             }
 
-            return MenuReference;
+            return _menuReference;
         }
 
         internal static GameObject GetModalTemplate()
         {
-            if (modalReference == null)
+            if (_modalReference == null)
             {
-                modalReference = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Modal_AddMessage");
+                _modalReference = Utils.FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Modal_AddMessage");
             }
 
-            return modalReference;
+            return _modalReference;
         }
     }
 }

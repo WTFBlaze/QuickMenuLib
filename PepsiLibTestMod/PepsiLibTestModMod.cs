@@ -8,6 +8,7 @@ namespace PepsiLibTestMod
 {
     public class PepsiLibTestModMod : MelonMod
     {
+
         public override void OnApplicationStart()
         {
             PepsiLib.PepsiLibMod.RegisterModMenu(new MyModMenu());
