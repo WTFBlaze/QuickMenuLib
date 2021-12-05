@@ -1,7 +1,12 @@
 # PepsiLib
 A QuickMenu API inspired by UiExpansionKit, and partially based on ReModCE's first API
 
-# QuickStart
+## Table of Contents
+* [QuickStart](#QuickStart)
+* [Planned](#Planned)
+* [Credits](#Credits)
+
+## QuickStart
 
 Create a Class that Inherits from ModMenu.
 ```cs
@@ -102,9 +107,9 @@ The Pages PepsiLib creates for itself are exposed to your Mod as well.
         public static QuickMenuWingMenu RightWingMenu = null;
 ```
 
-# Planned Features
+## Planned
 * Proper Documentation Page
 
-# Credit
+## Credits
 The way we add controls is based on how RequiDev does it in [ReModCE](https://github.com/RequiDev/ReModCE) <br>
 This Project is inspired by Knah's [UiExpansionKit](https://github.com/knah/vrcmods)
