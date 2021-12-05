@@ -8,6 +8,9 @@ using Object = UnityEngine.Object;
 
 namespace PepsiLib.UI.Elements
 {
+    /// <summary>
+    /// Credit to https://github.com/RequiDev/RemodCE
+    /// </summary>
     public class QuickMenuButton : UIElement
     {
         private static GameObject ButtonTemplate => QuickMenuTemplates.GetSingleButtonTemplate();

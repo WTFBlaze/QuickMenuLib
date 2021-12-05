@@ -81,18 +81,36 @@ namespace PepsiLib.UI
 
         private static void InitializeWingMenus()
         {
-            PepsiLibMod.LeftWingMenu = new QuickMenuWingMenu("PepsiLib_Left");
-            new QuickMenuWingButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.LeftWingMenu.Open);
-            
-            PepsiLibMod.RightWingMenu = new QuickMenuWingMenu("PepsiLib_Right", false);
-            new QuickMenuWingButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.RightWingMenu.Open, null, false);
-
-            foreach (var menu in PepsiLibMod.ModMenus)
+            try
             {
-                menu.MyLeftWingMenu = PepsiLibMod.LeftWingMenu.AddSubMenu($"{menu.MenuName}_Left", $"Functions for {menu.MenuName}", menu.Logo);
-                menu.MyRightWingMenu = PepsiLibMod.RightWingMenu.AddSubMenu($"{menu.MenuName}_Right", $"Functions for {menu.MenuName}", menu.Logo);
-                menu.OnWingMenuLeftInitialized();
-                menu.OnWingMenuRightInitialized();
+                PepsiLibMod.LeftWingMenu = new QuickMenuWingMenu("PepsiLib_Left");
+                new QuickMenuWingButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.LeftWingMenu.Open);
+
+                PepsiLibMod.RightWingMenu = new QuickMenuWingMenu("PepsiLib_Right", false);
+                new QuickMenuWingButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.RightWingMenu.Open, null,
+                    false);
+
+                foreach (var menu in PepsiLibMod.ModMenus)
+                {
+                    menu.MyLeftWingMenu = PepsiLibMod.LeftWingMenu.AddSubMenu($"{menu.MenuName}_Left",
+                        $"Functions for {menu.MenuName}", menu.Logo);
+                    menu.MyRightWingMenu = PepsiLibMod.RightWingMenu.AddSubMenu($"{menu.MenuName}_Right",
+                        $"Functions for {menu.MenuName}", menu.Logo);
+                    try
+                    {
+                        menu.OnWingMenuLeftInitialized();
+                        menu.OnWingMenuRightInitialized();
+                    }
+                    catch (Exception e)
+                    {
+                        Error($"Failed to Initialize Wing Menus for {menu.MenuName}!");
+                        Error(e);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Error($"Failed to initialize Wing Menus! Exception: {e}");
             }
         }
     }

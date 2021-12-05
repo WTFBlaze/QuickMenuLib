@@ -7,6 +7,9 @@ using Object = UnityEngine.Object;
 
 namespace PepsiLib.UI.Elements
 {
+    /// <summary>
+    /// Credit to https://github.com/RequiDev/RemodCE
+    /// </summary>
     public class QuickMenuWingMenu : UIElement
     {
         private static GameObject WingMenuTemplate => QuickMenuTemplates.GetWingMenuTemplate();

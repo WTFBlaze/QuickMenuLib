@@ -5,6 +5,9 @@ using VRC.UI.Elements.Controls;
 
 namespace PepsiLib.UI.Elements
 {
+    /// <summary>
+    /// Credit to https://github.com/RequiDev/RemodCE
+    /// </summary>
     public class QuickMenuTabButton : UIElement
     {
         private static GameObject TabButtonTemplate => QuickMenuTemplates.GetPageButtonTemplate();

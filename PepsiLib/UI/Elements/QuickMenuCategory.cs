@@ -9,6 +9,9 @@ using Object = UnityEngine.Object;
 
 namespace PepsiLib.UI.Elements
 {
+    /// <summary>
+    /// Credit to https://github.com/RequiDev/RemodCE
+    /// </summary>
     public class QuickMenuHeader : UIElement
     {
         private static GameObject HeaderTemplate => QuickMenuTemplates.GetHeaderTemplate();

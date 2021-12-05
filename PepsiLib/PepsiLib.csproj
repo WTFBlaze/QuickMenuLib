@@ -129,7 +129,6 @@
     <Compile Include="UI\Elements\QuickMenuWingMenu.cs" />
     <Compile Include="UI\PagePreparer.cs" />
     <Compile Include="UI\QuickMenuExtensions.cs" />
-    <Compile Include="UI\QuickMenuPages.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup />

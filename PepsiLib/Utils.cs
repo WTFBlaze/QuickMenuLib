@@ -10,46 +10,8 @@ using static MelonLoader.MelonLogger;
 
 namespace PepsiLib
 {
-    /// <summary>
-    /// https://github.com/loukylor/VRC-Mods/blob/main/VRChatUtilityKit/Utilities/XrefUtils.cs
-    /// </summary>
-    internal static class XrefUtils
-    {
-        /// <summary>
-        /// Checks the methods the given method is used by.
-        /// Note: the methods passed into the predicate may be false.
-        /// </summary>
-        /// <param name="method">The method to check</param>
-        /// <param name="predicate">The predicate to check the methods against</param>
-        /// <returns>true if the predicate returned true any times, otherwise false</returns>
-        internal static bool CheckUsedBy(MethodBase method, Func<MethodBase, bool> predicate)
-        {
-            foreach (XrefInstance instance in XrefScanner.UsedBy(method))
-                if (instance.Type == XrefType.Method && predicate.Invoke(instance.TryResolve()))
-                    return true;
-            return false;
-        }
-        
-        public static bool CheckUsedBy(MethodBase method, string methodName, Type type = null)
-            => CheckUsedBy(method, usedByMethod => usedByMethod != null && (type == null || usedByMethod.DeclaringType == type) && usedByMethod.Name.Contains(methodName));
-    }
     public static class Utils
     {
-        internal static object _selectedUserManagerObject;
-        internal static MethodInfo _selectUserMethod;
-        internal static PropertyInfo _activeUserInUserSelectMenuField;
-
-        internal static APIUser GetSelectedUser()
-        {
-            if(_selectedUserManagerObject == null)  _selectedUserManagerObject = GameObject.Find("_Application/UIManager/SelectedUserManager").GetComponent<UserSelectionManager>();
-
-            if(_selectUserMethod == null) _selectUserMethod = typeof(UserSelectionManager).GetMethods()
-                .First(method => method.Name.StartsWith("Method_Public_Void_APIUser_") && !method.Name.Contains("_PDM_") && XrefUtils.CheckUsedBy(method, "Method_Public_Virtual_Final_New_Void_IUser_"));
-            if(_activeUserInUserSelectMenuField == null) _activeUserInUserSelectMenuField = typeof(UserSelectionManager).GetProperty("field_Private_APIUser_1");
-            return (APIUser)_activeUserInUserSelectMenuField.GetValue(_selectedUserManagerObject);
-            
-        }
-        
         /// <summary>
         /// This Method Removes the VRCPlus Banner on the Home Page of the QuickMenu. Credit to tetra-fox
         /// https://github.com/tetra-fox/VRCMods/blob/master/AdBlocker/AdBlockerMod.cs
@@ -70,7 +32,7 @@ namespace PepsiLib
             }
         }
         
-        
+        // https://github.com/knah/
         public static GameObject? FindInactive(string path)
         {
             var split = path.Split(new char[]{'/'}, 2);
