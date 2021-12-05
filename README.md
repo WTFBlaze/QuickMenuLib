@@ -12,35 +12,39 @@ namespace PepsiLibTestMod
 {
     public class MyModMenu : ModMenu
     {
-        public override string MenuName => "TestModMenu"; //You have to change this name. It'll conflict with other Mod's pages
+        public override string MenuName => "TestModMenu"; //Has to be set: Conflicts will arise if you don't
         
-        //This Method gets called when the Main Page of the QuickMenu initializes.
         public override void OnQuickMenuInitialized()
         {
-            var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff"); //Every Mod Menu gets its own pages.
-            category.AddButton("TestButton", "Test", "This is a test using PepsiLib!", () =>
+            Logo = // You can put a sprite here and PepsiLib will automatically add it.
+            
+            var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff");
+            category.AddButton("Test", "This is a test using PepsiLib!", () =>
             {
                 MelonLogger.Msg("Test Button!");
             });
 
             MyModMenu.AddSlider("FunnySlider", "Test", (num) => MelonLogger.Msg(num));
         }
-        
-        //This Method gets called when the Left Wing Menu Initializes.
         public override void OnWingMenuLeftInitialized()
         {
-            MyLeftWingMenu.AddButton("TestButton", "Test", "Test using PepsiLib!", () =>
+            MyLeftWingMenu.AddButton("Test", "Test using PepsiLib!", () =>
+            {
+                MelonLogger.Msg("Test Wing Button!");
+            });
+        } 
+        public override void OnWingMenuRightInitialized()
+        {
+            MyRightWingMenu.AddButton("Test", "Test using PepsiLib!", () =>
             {
                 MelonLogger.Msg("Test Wing Button!");
             });
         }
-        
-        //This Method gets called when the Selected User Menu Initializes.
         public override void OnTargetMenuInitialized()
         {
-            MyTargetMenu.AddButton("TestButton", "Test", "Test using PepsiLib!", () =>
+            MyTargetMenu.AddButton("Test", "Test using PepsiLib!", () =>
             {
-                MelonLogger.Msg(SelectedUser.prop_String_0); //PepsiLib runs a Coroutine and provides the Selected IUser for every Mod Menu.
+                MelonLogger.Msg(SelectedUser.prop_String_0);
             });
         }
     }
@@ -72,10 +76,13 @@ namespace PepsiLib
         /// </summary>
         public virtual string MenuName => "Default Menu";
 
+        public Sprite Logo = null;
+
         public QuickMenuPage MyModMenu = null;
         public QuickMenuWingMenu MyLeftWingMenu = null;
         public QuickMenuWingMenu MyRightWingMenu = null;
         public QuickMenuPage MyTargetMenu = null;
+        
         public IUser SelectedUser = null;
 
         public virtual void OnQuickMenuInitialized() { }
