@@ -76,10 +76,10 @@ namespace PepsiLib.UI.Elements
             return new QuickMenuWingButton(text, tooltip, onClick, MyContainer, sprite, arrow, background, seperator);
         }
 
-        public QuickMenuWingMenu AddSubMenu(string text, string tooltip, Sprite image = null)
+        public QuickMenuWingMenu AddSubMenu(string text, string tooltip, Sprite image = null, bool button = true)
         {
             var menu = new QuickMenuWingMenu(text, MyWing.field_Public_WingPanel_0 == Wing.WingPanel.Left);
-            AddButton(text, tooltip, menu.Open, image);
+            if(button) AddButton(text, tooltip, menu.Open, image);
             return menu;
         }
     }

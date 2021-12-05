@@ -131,10 +131,10 @@ namespace PepsiLib.UI.Elements
             return new QuickMenuToggleButton(text, tooltip, onToggle, MyContainer, defaultValue);
         }
 
-        public QuickMenuPage AddSubMenu(string text, string tooltip, bool grid = true, Sprite image = null)
+        public QuickMenuPage AddSubMenu(string text, string tooltip, bool grid = true, Sprite image = null, bool button = true)
         {
             var menu = new QuickMenuPage(text, false, grid);
-            AddButton(text, tooltip, menu.Open, image);
+            if(button) AddButton(text, tooltip, menu.Open, image);
             return menu;
         }
 

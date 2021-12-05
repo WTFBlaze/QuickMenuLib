@@ -61,7 +61,8 @@ namespace PepsiLib.UI
 
                 foreach (var menu in PepsiLibMod.ModMenus)
                 {
-                    menu.MyTargetMenu = PepsiLibMod.TargetMenu.AddSubMenu($"{menu.MenuName}-Targets", $"Content for {menu.MenuName}", false, menu.Logo);
+                    menu.MyTargetMenu = PepsiLibMod.TargetMenu.AddSubMenu($"{menu.MenuName}-Targets", $"Content for {menu.MenuName}", false, menu.Logo, false);
+                    PepsiLibMod.TargetMenu.AddButton(menu.MenuName, $"Functions for {menu.MenuName}", menu.MyTargetMenu.Open, menu.Logo);
                     try
                     {
                         menu.OnTargetMenuInitialized();
@@ -93,9 +94,14 @@ namespace PepsiLib.UI
                 foreach (var menu in PepsiLibMod.ModMenus)
                 {
                     menu.MyLeftWingMenu = PepsiLibMod.LeftWingMenu.AddSubMenu($"{menu.MenuName}_Left",
-                        $"Functions for {menu.MenuName}", menu.Logo);
+                        $"Functions for {menu.MenuName}", menu.Logo, false);
                     menu.MyRightWingMenu = PepsiLibMod.RightWingMenu.AddSubMenu($"{menu.MenuName}_Right",
-                        $"Functions for {menu.MenuName}", menu.Logo);
+                        $"Functions for {menu.MenuName}", menu.Logo, false);
+                    
+                    PepsiLibMod.LeftWingMenu.AddButton(menu.MenuName, "Functions for " + menu.MenuName,
+                        menu.MyLeftWingMenu.Open, menu.Logo);
+                    PepsiLibMod.RightWingMenu.AddButton(menu.MenuName, "Functions for " + menu.MenuName,
+                        menu.MyRightWingMenu.Open, menu.Logo);
                     try
                     {
                         menu.OnWingMenuLeftInitialized();
