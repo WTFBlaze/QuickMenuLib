@@ -15,9 +15,9 @@ namespace PepsiLib.UI.Elements
         private readonly string MyName;
         private readonly Transform MyContainer;
 
-        public QuickMenuWingMenu(string name, string text, bool left = true) : base(WingMenuTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0, name, false)
+        public QuickMenuWingMenu(string text, bool left = true) : base(WingMenuTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0, "WingMenu_{text}", false)
         {
-            MyName = name;
+            MyName = $"WingMenu_{text}";
             MyWing = left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing;
 
             var headerTransform = RectTransform.GetChild(0);
@@ -53,8 +53,8 @@ namespace PepsiLib.UI.Elements
             MyContainer = content;
 
             var uiPage = GameObject.GetComponent<UIPage>();
-            uiPage.name = name;
-            uiPage.field_Public_String_0 = name;
+            uiPage.name = $"WingMenu_{text}";
+            uiPage.field_Public_String_0 = $"WingMenu_{text}";
             uiPage.field_Public_Boolean_0 = true;
             uiPage.field_Private_MenuStateController_0 = MyWing.field_Private_MenuStateController_0;
             uiPage.field_Private_List_1_UIPage_0 = new Il2CppSystem.Collections.Generic.List<UIPage>();
@@ -68,15 +68,15 @@ namespace PepsiLib.UI.Elements
             MyWing.field_Private_MenuStateController_0.Method_Public_Void_String_UIContext_Boolean_0(MyName);
         }
 
-        public QuickMenuWingButton AddButton(string name, string text, string tooltip, Action onClick, Sprite sprite = null, bool arrow = true, bool background = true, bool seperator = false)
+        public QuickMenuWingButton AddButton(string text, string tooltip, Action onClick, Sprite sprite = null, bool arrow = true, bool background = true, bool seperator = false)
         {
-            return new QuickMenuWingButton(name, text, tooltip, onClick, MyContainer, sprite, arrow, background, seperator);
+            return new QuickMenuWingButton(text, tooltip, onClick, MyContainer, sprite, arrow, background, seperator);
         }
 
-        public QuickMenuWingMenu AddSubMenu(string name, string text, string tooltip, Sprite image = null)
+        public QuickMenuWingMenu AddSubMenu(string text, string tooltip, Sprite image = null)
         {
-            var menu = new QuickMenuWingMenu(name, text, MyWing.field_Public_WingPanel_0 == Wing.WingPanel.Left);
-            AddButton(name, text, tooltip, menu.Open, image);
+            var menu = new QuickMenuWingMenu(text, MyWing.field_Public_WingPanel_0 == Wing.WingPanel.Left);
+            AddButton(text, tooltip, menu.Open, image);
             return menu;
         }
     }
@@ -85,8 +85,8 @@ namespace PepsiLib.UI.Elements
     {
         private static GameObject WingButtonTemplate => QuickMenuTemplates.GetWingButtonTemplate();
 
-        public QuickMenuWingButton(string name, string text, string tooltip, Action onClick, Sprite sprite = null, bool left = true, bool arrow = true, bool background = true,
-            bool seperator = false) : base(WingButtonTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0.Find("WingMenu/ScrollRect/Viewport/VerticalLayoutGroup"), $"Button_{name}")
+        public QuickMenuWingButton(string text, string tooltip, Action onClick, Sprite sprite = null, bool left = true, bool arrow = true, bool background = true,
+            bool seperator = false) : base(WingButtonTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0.Find("WingMenu/ScrollRect/Viewport/VerticalLayoutGroup"), $"Button_{text}")
         {
             var container = RectTransform.Find("Container").transform;
             container.Find("Background").gameObject.SetActive(background);
@@ -116,8 +116,8 @@ namespace PepsiLib.UI.Elements
             uiTooltip.field_Public_String_1 = tooltip;
         }
 
-        public QuickMenuWingButton(string name, string text, string tooltip, Action onClick, Transform parent, Sprite sprite = null, bool arrow = true, bool background = true,
-            bool seperator = false) : base(WingButtonTemplate, parent, $"Button_{name}")
+        public QuickMenuWingButton(string text, string tooltip, Action onClick, Transform parent, Sprite sprite = null, bool arrow = true, bool background = true,
+            bool seperator = false) : base(WingButtonTemplate, parent, $"Button_{text}")
         {
             var container = RectTransform.Find("Container").transform;
             container.Find("Background").gameObject.SetActive(background);

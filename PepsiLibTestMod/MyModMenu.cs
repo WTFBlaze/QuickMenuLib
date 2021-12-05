@@ -19,7 +19,14 @@ namespace PepsiLibTestMod
         }
         public override void OnWingMenuLeftInitialized()
         {
-            MyLeftWingMenu.AddButton("TestButton", "Test", "Test using PepsiLib!", () =>
+            MyLeftWingMenu.AddButton("Test", "Test using PepsiLib!", () =>
+            {
+                MelonLogger.Msg("Test Wing Button!");
+            });
+        } 
+        public override void OnWingMenuRightInitialized()
+        {
+            MyRightWingMenu.AddButton("Test", "Test using PepsiLib!", () =>
             {
                 MelonLogger.Msg("Test Wing Button!");
             });
