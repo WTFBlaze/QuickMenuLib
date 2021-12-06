@@ -19,10 +19,13 @@ namespace PepsiLibTestMod
     {
         public override string MenuName => "TestModMenu"; //Has to be set: Conflicts will arise if you don't
         
-        public override void OnQuickMenuInitialized()
+        public MyModMenu()
         {
             Logo = // You can put a sprite here and PepsiLib will automatically add it.
-            
+        }
+        
+        public override void OnQuickMenuInitialized()
+        {   
             var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff");
             category.AddButton("Test", "This is a test using PepsiLib!", () =>
             {
