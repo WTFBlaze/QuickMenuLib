@@ -112,6 +112,7 @@ The Pages PepsiLib creates for itself are exposed to your Mod as well.
 
 ## Planned
 * Proper Documentation Page
+* There are a few inconsistencies with some controls still requiring Names. Will get fixed after i've gone through the VRCMG approval process
 
 ## Credits
 The way we add controls is based on how RequiDev does it in [ReModCE](https://github.com/RequiDev/ReModCE) <br>
