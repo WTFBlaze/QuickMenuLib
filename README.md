@@ -1,4 +1,4 @@
-# PepsiLib
+# QuickMenuLib
 A QuickMenu API inspired by UiExpansionKit, and partially based on ReModCE's first API
 
 ## Table of Contents
