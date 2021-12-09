@@ -11,9 +11,9 @@ A QuickMenu API inspired by UiExpansionKit, and partially based on ReModCE's fir
 Create a Class that Inherits from ModMenu.
 ```cs
 using MelonLoader;
-using PepsiLib;
+using QuickMenuLib;
 
-namespace PepsiLibTestMod
+namespace QuickMenuLibTestMod
 {
     public class MyModMenu : ModMenu
     {
@@ -21,13 +21,13 @@ namespace PepsiLibTestMod
         
         public MyModMenu()
         {
-            Logo = // You can put a sprite here and PepsiLib will automatically add it.
+            Logo = // You can put a sprite here and QuickMenuLib will automatically add it.
         }
         
         public override void OnQuickMenuInitialized()
         {   
             var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff");
-            category.AddButton("Test", "This is a test using PepsiLib!", () =>
+            category.AddButton("Test", "This is a test using QuickMenuLib!", () =>
             {
                 MelonLogger.Msg("Test Button!");
             });
@@ -63,7 +63,7 @@ Then simply register your custom Mod Menu Class:
 ```cs
         public override void OnApplicationStart()
         {
-            PepsiLib.PepsiLibMod.RegisterModMenu(new MyModMenu());
+            QuickMenuLib.QuickMenuLibMod.RegisterModMenu(new MyModMenu());
         }
 ```
 
@@ -101,7 +101,7 @@ namespace PepsiLib
 }
 ```
 
-The Pages PepsiLib creates for itself are exposed to your Mod as well. 
+The Pages QuickMenuLib creates for itself are exposed to your Mod as well. 
 ```cs
         //We expose these to the Mods in case they want to add content to these pages. Unlikely but it can't hurt.
         public static QuickMenuPage MainMenu = null;
@@ -112,7 +112,6 @@ The Pages PepsiLib creates for itself are exposed to your Mod as well.
 
 ## Planned
 * Proper Documentation Page
-* There are a few inconsistencies with some controls still requiring Names. Will get fixed after i've gone through the VRCMG approval process
 
 ## Credits
 The way we add controls is based on how RequiDev does it in [ReModCE](https://github.com/RequiDev/ReModCE) <br>
