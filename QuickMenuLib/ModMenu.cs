@@ -1,10 +1,10 @@
-﻿using PepsiLib.UI;
-using PepsiLib.UI.Elements;
+﻿using QuickMenuLib.UI;
+using QuickMenuLib.UI.Elements;
 using UnityEngine;
 using VRC.Core;
 using VRC.DataModel;
 
-namespace PepsiLib
+namespace QuickMenuLib
 {
     /// <summary>
     /// The ModMenu Class.

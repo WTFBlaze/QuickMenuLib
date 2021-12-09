@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 using Object = UnityEngine.Object;
 
-namespace PepsiLib.UI.Elements
+namespace QuickMenuLib.UI.Elements
 {
     /// <summary>
     /// Credit to https://github.com/RequiDev/RemodCE
@@ -70,7 +70,7 @@ namespace PepsiLib.UI.Elements
             return button;
         }
 
-        public QuickMenuToggleButton AddToggle(string name, string text, string tooltip, Action<bool> onToggle, bool defaultpos = false)
+        public QuickMenuToggleButton AddToggle(string text, string tooltip, Action<bool> onToggle, bool defaultpos = false)
         {
             var toggle = new QuickMenuToggleButton(text, tooltip, onToggle, MyButtonContainer.RectTransform, defaultpos);
             return toggle;

@@ -8,7 +8,7 @@ using VRC.Core;
 using VRC.DataModel;
 using static MelonLoader.MelonLogger;
 
-namespace PepsiLib
+namespace QuickMenuLib
 {
     public static class Utils
     {

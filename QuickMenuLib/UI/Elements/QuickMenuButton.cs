@@ -6,7 +6,7 @@ using VRC.UI.Elements.Controls;
 
 using Object = UnityEngine.Object;
 
-namespace PepsiLib.UI.Elements
+namespace QuickMenuLib.UI.Elements
 {
     /// <summary>
     /// Credit to https://github.com/RequiDev/RemodCE

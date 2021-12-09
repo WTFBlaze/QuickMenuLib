@@ -1,11 +1,11 @@
-﻿using PepsiLib.UI.Elements;
-using System;
+﻿using System;
 using System.Collections;
+using QuickMenuLib.UI.Elements;
 using UnityEngine;
 using UnityEngine.UI;
 using static MelonLoader.MelonLogger;
 
-namespace PepsiLib.UI
+namespace QuickMenuLib.UI
 {
     internal class PagePreparer
     {
@@ -22,15 +22,15 @@ namespace PepsiLib.UI
             {
                 Msg("Setting Up Launchpad.");
 
-                var MainCategory = new QuickMenuCategory("PepsiLib");
+                var MainCategory = new QuickMenuCategory("QuickMenuLib");
 
-                PepsiLibMod.MainMenu = new QuickMenuPage("PepsiLib", false, true);
+                QuickMenuLibMod.MainMenu = new QuickMenuPage("QuickMenuLib", false, true);
 
-                MainCategory.AddButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.MainMenu.Open);
+                MainCategory.AddButton("Mods", "Mod Menus using QuickMenuLib", QuickMenuLibMod.MainMenu.Open);
 
-                foreach (var menu in PepsiLibMod.ModMenus)
+                foreach (var menu in QuickMenuLibMod.ModMenus)
                 {
-                    menu.MyModMenu = PepsiLibMod.MainMenu.AddSubMenu(menu.MenuName, $"Content for {menu.MenuName}", false, menu.Logo);
+                    menu.MyModMenu = QuickMenuLibMod.MainMenu.AddSubMenu(menu.MenuName, $"Content for {menu.MenuName}", false, menu.Logo);
                     try
                     {
                         menu.OnQuickMenuInitialized();
@@ -53,16 +53,16 @@ namespace PepsiLib.UI
             {
                 Msg("Setting Up Target Menu.");
 
-                var MainCategory = new QuickMenuCategory("PepsiLib-Targets", QuickMenuExtensions.SelectedUserMenu.transform.Find("ScrollRect").GetComponent<ScrollRect>().content);
+                var MainCategory = new QuickMenuCategory("QuickMenuLib-Targets", QuickMenuExtensions.SelectedUserMenu.transform.Find("ScrollRect").GetComponent<ScrollRect>().content);
 
-                PepsiLibMod.TargetMenu = new QuickMenuPage("PepsiLib-Targets", false, true);
+                QuickMenuLibMod.TargetMenu = new QuickMenuPage("QuickMenuLib-Targets", false, true);
 
-                MainCategory.AddButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.TargetMenu.Open);
+                MainCategory.AddButton("Mods", "Mod Menus using QuickMenuLib", QuickMenuLibMod.TargetMenu.Open);
 
-                foreach (var menu in PepsiLibMod.ModMenus)
+                foreach (var menu in QuickMenuLibMod.ModMenus)
                 {
-                    menu.MyTargetMenu = PepsiLibMod.TargetMenu.AddSubMenu($"{menu.MenuName}-Targets", $"Content for {menu.MenuName}", false, menu.Logo, false);
-                    PepsiLibMod.TargetMenu.AddButton(menu.MenuName, $"Functions for {menu.MenuName}", menu.MyTargetMenu.Open, menu.Logo);
+                    menu.MyTargetMenu = QuickMenuLibMod.TargetMenu.AddSubMenu($"{menu.MenuName}-Targets", $"Content for {menu.MenuName}", false, menu.Logo, false);
+                    QuickMenuLibMod.TargetMenu.AddButton(menu.MenuName, $"Functions for {menu.MenuName}", menu.MyTargetMenu.Open, menu.Logo);
                     try
                     {
                         menu.OnTargetMenuInitialized();
@@ -84,23 +84,23 @@ namespace PepsiLib.UI
         {
             try
             {
-                PepsiLibMod.LeftWingMenu = new QuickMenuWingMenu("PepsiLib_Left");
-                new QuickMenuWingButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.LeftWingMenu.Open);
+                QuickMenuLibMod.LeftWingMenu = new QuickMenuWingMenu("PepsiLib_Left");
+                new QuickMenuWingButton("Mods", "Mod Menus using QuickMenuLib", QuickMenuLibMod.LeftWingMenu.Open);
 
-                PepsiLibMod.RightWingMenu = new QuickMenuWingMenu("PepsiLib_Right", false);
-                new QuickMenuWingButton("Mods", "Mod Menus using PepsiLib", PepsiLibMod.RightWingMenu.Open, null,
+                QuickMenuLibMod.RightWingMenu = new QuickMenuWingMenu("PepsiLib_Right", false);
+                new QuickMenuWingButton("Mods", "Mod Menus using QuickMenuLib", QuickMenuLibMod.RightWingMenu.Open, null,
                     false);
 
-                foreach (var menu in PepsiLibMod.ModMenus)
+                foreach (var menu in QuickMenuLibMod.ModMenus)
                 {
-                    menu.MyLeftWingMenu = PepsiLibMod.LeftWingMenu.AddSubMenu($"{menu.MenuName}_Left",
+                    menu.MyLeftWingMenu = QuickMenuLibMod.LeftWingMenu.AddSubMenu($"{menu.MenuName}_Left",
                         $"Functions for {menu.MenuName}", menu.Logo, false);
-                    menu.MyRightWingMenu = PepsiLibMod.RightWingMenu.AddSubMenu($"{menu.MenuName}_Right",
+                    menu.MyRightWingMenu = QuickMenuLibMod.RightWingMenu.AddSubMenu($"{menu.MenuName}_Right",
                         $"Functions for {menu.MenuName}", menu.Logo, false);
                     
-                    PepsiLibMod.LeftWingMenu.AddButton(menu.MenuName, "Functions for " + menu.MenuName,
+                    QuickMenuLibMod.LeftWingMenu.AddButton(menu.MenuName, "Functions for " + menu.MenuName,
                         menu.MyLeftWingMenu.Open, menu.Logo);
-                    PepsiLibMod.RightWingMenu.AddButton(menu.MenuName, "Functions for " + menu.MenuName,
+                    QuickMenuLibMod.RightWingMenu.AddButton(menu.MenuName, "Functions for " + menu.MenuName,
                         menu.MyRightWingMenu.Open, menu.Logo);
                     try
                     {

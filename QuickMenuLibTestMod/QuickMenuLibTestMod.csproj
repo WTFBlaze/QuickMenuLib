@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PepsiLibTestMod</RootNamespace>
-    <AssemblyName>PepsiLibTestMod</AssemblyName>
+    <AssemblyName>QuickMenuLibTestMod</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

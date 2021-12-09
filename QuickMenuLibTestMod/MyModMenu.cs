@@ -10,7 +10,7 @@ namespace PepsiLibTestMod
         public override void OnQuickMenuInitialized()
         {
             var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff");
-            category.AddButton("Test", "This is a test using PepsiLib!", () =>
+            category.AddButton("Test", "This is a test using QuickMenuLib!", () =>
             {
                 MelonLogger.Msg("Test Button!");
             });
@@ -19,21 +19,21 @@ namespace PepsiLibTestMod
         }
         public override void OnWingMenuLeftInitialized()
         {
-            MyLeftWingMenu.AddButton("Test", "Test using PepsiLib!", () =>
+            MyLeftWingMenu.AddButton("Test", "Test using QuickMenuLib!", () =>
             {
                 MelonLogger.Msg("Test Wing Button!");
             });
         } 
         public override void OnWingMenuRightInitialized()
         {
-            MyRightWingMenu.AddButton("Test", "Test using PepsiLib!", () =>
+            MyRightWingMenu.AddButton("Test", "Test using QuickMenuLib!", () =>
             {
                 MelonLogger.Msg("Test Wing Button!");
             });
         }
         public override void OnTargetMenuInitialized()
         {
-            MyTargetMenu.AddButton("Test", "Test using PepsiLib!", () =>
+            MyTargetMenu.AddButton("Test", "Test using QuickMenuLib!", () =>
             {
                 MelonLogger.Msg(SelectedUser.prop_String_0);
             });

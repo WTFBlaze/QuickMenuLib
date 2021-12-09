@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PepsiLib</RootNamespace>
-    <AssemblyName>PepsiLib</AssemblyName>
+    <AssemblyName>QuickMenuLib</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -118,7 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModMenu.cs" />
-    <Compile Include="PepsiLibMod.cs" />
+    <Compile Include="QuickMenuLibMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Elements\QuickMenuButton.cs" />
     <Compile Include="UI\Elements\QuickMenuCategory.cs" />

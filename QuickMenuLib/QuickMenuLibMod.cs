@@ -1,22 +1,21 @@
 ﻿using MelonLoader;
-using PepsiLib.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using VRC.UI.Elements;
-using PepsiLib.UI.Elements;
-
+using QuickMenuLib.UI;
+using QuickMenuLib.UI.Elements;
 using static MelonLoader.MelonLogger;
 using VRC.UI.Core;
 using UnityEngine;
 
-namespace PepsiLib
+namespace QuickMenuLib
 {
-    public class PepsiLibMod : MelonMod
+    public class QuickMenuLibMod : MelonMod
     {
         /// <summary>
-        /// Every Mod Registered in PepsiLib
+        /// Every Mod Registered in QuickMenuLib
         /// </summary>
         public static List<ModMenu> ModMenus = new List<ModMenu>();
 
@@ -31,7 +30,7 @@ namespace PepsiLib
             OnUIManagerInitialized(delegate
             {
                 string ModValue = ModMenus.Count == 1 ? "Mod" : "Mods";
-                Msg($"Found {ModMenus.Count} {ModValue} using PepsiLib.");
+                Msg($"Found {ModMenus.Count} {ModValue} using QuickMenuLib.");
                 
                 PagePreparer.PrepareEverything();
                 Utils.RemoveVrcPlus();

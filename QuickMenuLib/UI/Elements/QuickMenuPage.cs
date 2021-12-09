@@ -7,7 +7,7 @@ using VRC.UI.Elements;
 
 using Object = UnityEngine.Object;
 
-namespace PepsiLib.UI.Elements
+namespace QuickMenuLib.UI.Elements
 {
     public class QuickMenuPage : UIElement
     {
@@ -121,9 +121,9 @@ namespace PepsiLib.UI.Elements
             return new QuickMenuButton(text, tooltip, onClick, MyContainer, image);
         }
 
-        public QuickMenuSlider AddSlider(string name, string text, Action<float> onValueChanged, float minValue = 0, float maxValue = 1)
+        public QuickMenuSlider AddSlider(string text, Action<float> onValueChanged, float minValue = 0, float maxValue = 1)
         {
-            return new QuickMenuSlider(name, text, onValueChanged, MyContainer, minValue, maxValue);
+            return new QuickMenuSlider(text, onValueChanged, MyContainer, minValue, maxValue);
         }
 
         public QuickMenuToggleButton AddToggle(string name, string text, string tooltip, Action<bool> onToggle, bool defaultValue = false)

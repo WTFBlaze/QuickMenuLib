@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PepsiLib
+namespace QuickMenuLib
 {
 
     /// <summary>

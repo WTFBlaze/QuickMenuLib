@@ -5,7 +5,7 @@ using VRC.UI.Elements;
 using VRC.UI.Elements.Menus;
 using NewQuickMenu = VRC.UI.Elements.QuickMenu;
 
-namespace PepsiLib.UI
+namespace QuickMenuLib.UI
 {
     public static class QuickMenuExtensions
     {

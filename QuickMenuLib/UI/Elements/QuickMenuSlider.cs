@@ -1,4 +1,4 @@
-﻿using PepsiLib.UI;
+﻿using QuickMenuLib.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PepsiLib.UI.Elements
+namespace QuickMenuLib.UI.Elements
 {
     public class QuickMenuSlider : UIElement
     {
@@ -25,7 +25,7 @@ namespace PepsiLib.UI.Elements
 
         private readonly Slider MySlider;
 
-        public QuickMenuSlider(string name, string text, Action<float> onValueChanged, Transform parent, float minValue = 0, float maxValue = 1) : base(SliderTemplate, parent, $"Slider_{name}")
+        public QuickMenuSlider(string text, Action<float> onValueChanged, Transform parent, float minValue = 0, float maxValue = 1) : base(SliderTemplate, parent, $"Slider_{text}")
         {
             MyText = GameObject.GetComponentInChildren<TextMeshProUGUI>();
             MyText.text = text;
