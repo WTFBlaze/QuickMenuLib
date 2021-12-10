@@ -72,7 +72,7 @@ A Look at what PepsiLib provides your Menu with, by looking at the ModMenu Class
 using PepsiLib.UI.Elements;
 using VRC.DataModel;
 
-namespace PepsiLib
+namespace QuickMenuLib
 {
     /// <summary>
     /// The ModMenu Class.
