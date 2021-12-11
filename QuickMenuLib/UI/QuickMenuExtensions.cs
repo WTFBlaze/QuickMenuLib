@@ -150,7 +150,7 @@ namespace QuickMenuLib.UI
             {
                 _foldoutHeaderReference =
                     Utils.FindInactive(
-                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Settings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/QM_Foldout_UI_Elements");
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Here/ScrollRect/Viewport/VerticalLayoutGroup/QM_Foldout_WorldActions");
             }
 
             return _foldoutHeaderReference;

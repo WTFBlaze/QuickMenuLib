@@ -138,9 +138,9 @@ namespace QuickMenuLib.UI.Elements
             return menu;
         }
 
-        public QuickMenuCategory AddMenuCategory(string text, bool toggleable = false)
+        public QuickMenuCategory AddMenuCategory(string text)
         {
-            return new QuickMenuCategory(text, MyContainer, toggleable);
+            return new QuickMenuCategory(text, MyContainer, false);
         }
     }
 }

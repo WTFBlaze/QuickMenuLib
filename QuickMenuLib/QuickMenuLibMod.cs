@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using QuickMenuLib.UI;
 using QuickMenuLib.UI.Elements;
-using static QuickMenuLib.Logger;
 using VRC.UI.Core;
 using UnityEngine;
 
@@ -27,9 +26,6 @@ namespace QuickMenuLib
         {
             OnUIManagerInitialized(delegate
             {
-                string ModValue = ModMenus.Count == 1 ? "Mod" : "Mods";
-                Msg($"Found {ModMenus.Count} {ModValue} using QuickMenuLib.");
-                
                 PagePreparer.PrepareEverything();
             });
         }
@@ -52,7 +48,8 @@ namespace QuickMenuLib
         {
             while (VRCUiManager.prop_VRCUiManager_0 == null) yield return null;
 
-            //early init
+            string ModValue = ModMenus.Count == 1 ? "Mod" : "Mods";
+            LoggerInstance.Msg($"Found {ModMenus.Count} {ModValue} using QuickMenuLib.");
 
             while (UIManager.field_Private_Static_UIManager_0 == null) 
                 yield return null;
@@ -62,7 +59,11 @@ namespace QuickMenuLib
                 yield return null;
             code();
         }
-
+        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        {
+            LoggerInstance.Msg("Hi");
+            base.OnSceneWasInitialized(buildIndex, sceneName);
+        }
     }
 
     public static class Logger
