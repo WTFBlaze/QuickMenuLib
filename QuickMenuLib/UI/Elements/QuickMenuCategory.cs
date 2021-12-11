@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +8,19 @@ using Object = UnityEngine.Object;
 
 namespace QuickMenuLib.UI.Elements
 {
+
+    public class CategoryToggle : UIElement
+    {
+        private static GameObject ToggleTemplate =>
+            QuickMenuTemplates.GetFoldoutHeaderTemplate().GetComponentInChildren<Toggle>().gameObject;
+
+        public CategoryToggle(Transform parent) : base(ToggleTemplate,
+            (parent == null ? ToggleTemplate.transform.parent : parent), "Arrow")
+        {
+            GameObject.GetComponent<Toggle>().onValueChanged = new Toggle.ToggleEvent();
+        }
+    }
+    
     /// <summary>
     /// Credit to https://github.com/RequiDev/RemodCE
     /// </summary>
@@ -16,7 +28,7 @@ namespace QuickMenuLib.UI.Elements
     {
         private static GameObject HeaderTemplate => QuickMenuTemplates.GetHeaderTemplate();
 
-        public QuickMenuHeader(string name, string title, Transform parent) : base(HeaderTemplate, (parent == null ? HeaderTemplate.transform.parent : parent), $"Header_{name}")
+        public QuickMenuHeader(string title, Transform parent) : base(HeaderTemplate, (parent == null ? HeaderTemplate.transform.parent : parent), $"Header_{title}")
         {
             var tmp = GameObject.GetComponentInChildren<TextMeshProUGUI>();
             tmp.text = title;
@@ -53,10 +65,18 @@ namespace QuickMenuLib.UI.Elements
 
         private readonly List<QuickMenuPage> SubPages = new List<QuickMenuPage>();
 
-        public QuickMenuCategory(string title, Transform parent = null, int? siblingIndex = null)
+        public QuickMenuCategory(string title, Transform parent = null, bool toggleable = false, int? siblingIndex = null)
         {
-            MyHeader = new QuickMenuHeader($"Header_{title}", title, parent);
+            MyHeader = new QuickMenuHeader(title, parent);
             MyButtonContainer = new QuickMenuButtonContainer($"Container_{title}", parent);
+            if (toggleable)
+            {
+                var toggle = new CategoryToggle(MyHeader.RectTransform.Find("RightItemContainer"));
+                toggle.GameObject.GetComponent<Toggle>().onValueChanged.AddListener(new Action<bool>(b =>
+                {
+                    MyButtonContainer.GameObject.SetActive(b);
+                }));
+            }
             if (siblingIndex != null)
             {
                 MyHeader.RectTransform.SetSiblingIndex(siblingIndex.Value);
@@ -70,9 +90,9 @@ namespace QuickMenuLib.UI.Elements
             return button;
         }
 
-        public QuickMenuToggleButton AddToggle(string text, string tooltip, Action<bool> onToggle, bool defaultpos = false)
+        public QuickMenuToggleButton AddToggle(string text, string tooltip, Action<bool> onToggle, bool defaultPosition = false)
         {
-            var toggle = new QuickMenuToggleButton(text, tooltip, onToggle, MyButtonContainer.RectTransform, defaultpos);
+            var toggle = new QuickMenuToggleButton(text, tooltip, onToggle, MyButtonContainer.RectTransform, defaultPosition);
             return toggle;
         }
 

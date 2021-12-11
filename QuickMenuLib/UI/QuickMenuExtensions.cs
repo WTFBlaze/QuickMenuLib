@@ -22,22 +22,20 @@ namespace QuickMenuLib.UI
                 return _quickMenuInstance;
             }
         }
-
-        private static MenuStateController _menuStateController;
         public static MenuStateController MenuStateController => GetQuickMenu.prop_MenuStateController_0;
 
-        private static SelectedUserMenuQM _selectedUserMenuQM;
+        private static SelectedUserMenuQM _selectedUserMenuQm;
 
         public static SelectedUserMenuQM SelectedUserMenu
         {
             get
             {
-                if(_selectedUserMenuQM == null)
+                if(_selectedUserMenuQm == null)
                 {
-                    _selectedUserMenuQM = GetQuickMenu.field_Public_Transform_0.Find("Window/QMParent/Menu_SelectedUser_Local").GetComponent<SelectedUserMenuQM>();
+                    _selectedUserMenuQm = GetQuickMenu.field_Public_Transform_0.Find("Window/QMParent/Menu_SelectedUser_Local").GetComponent<SelectedUserMenuQM>();
                 }
 
-                return _selectedUserMenuQM;
+                return _selectedUserMenuQm;
             }
         }
 
@@ -90,6 +88,8 @@ namespace QuickMenuLib.UI
         private static GameObject _wingButtonReference;
         private static Sprite _toggleOnReference;
         private static GameObject _sliderReference;
+        private static GameObject _foldoutHeaderReference;
+        private static GameObject _foldoutContainerReference;
 
         internal static GameObject GetSliderPrefab()
         {
@@ -143,6 +143,18 @@ namespace QuickMenuLib.UI
 
             return _headerReference;
         }
+        
+        internal static GameObject GetFoldoutHeaderTemplate()
+        {
+            if (_foldoutHeaderReference == null)
+            {
+                _foldoutHeaderReference =
+                    Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Settings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/QM_Foldout_UI_Elements");
+            }
+
+            return _foldoutHeaderReference;
+        }
 
         internal static GameObject GetButtonRowTemplate()
         {
@@ -154,6 +166,18 @@ namespace QuickMenuLib.UI
             }
 
             return _buttonRowReference;
+        }
+        
+        internal static GameObject GetFoldoutContainerTemplate()
+        {
+            if (_foldoutContainerReference == null)
+            {
+                _foldoutContainerReference = 
+                    Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Settings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/Buttons_Debug");
+            }
+
+            return _foldoutContainerReference;
         }
 
         internal static GameObject GetSingleButtonTemplate()

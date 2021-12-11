@@ -2,11 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using VRC.UI.Elements;
 using QuickMenuLib.UI;
 using QuickMenuLib.UI.Elements;
-using static MelonLoader.MelonLogger;
+using static QuickMenuLib.Logger;
 using VRC.UI.Core;
 using UnityEngine;
 
@@ -33,7 +31,6 @@ namespace QuickMenuLib
                 Msg($"Found {ModMenus.Count} {ModValue} using QuickMenuLib.");
                 
                 PagePreparer.PrepareEverything();
-                Utils.RemoveVrcPlus();
             });
         }
 
@@ -46,12 +43,12 @@ namespace QuickMenuLib
             ModMenus.Add(menu);
         }
 
-        internal void OnUIManagerInitialized(Action code)
+        private void OnUIManagerInitialized(Action code)
         {
-            MelonCoroutines.Start(OnUiManagerInitCoro(code));
+            MelonCoroutines.Start(OnUiManagerInitCoroutine(code));
         }
 
-        internal IEnumerator OnUiManagerInitCoro(Action code)
+        private IEnumerator OnUiManagerInitCoroutine(Action code)
         {
             while (VRCUiManager.prop_VRCUiManager_0 == null) yield return null;
 
@@ -66,5 +63,13 @@ namespace QuickMenuLib
             code();
         }
 
+    }
+
+    public static class Logger
+    {
+        private static MelonLogger.Instance MyLogger = new MelonLogger.Instance("QuickMenuLib", ConsoleColor.Magenta);
+
+        public static void Msg(string msg) => MyLogger.Msg(msg);
+        public static void Error(string msg) => MyLogger.Error(msg);
     }
 }

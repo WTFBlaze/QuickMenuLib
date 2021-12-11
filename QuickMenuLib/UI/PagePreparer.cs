@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using QuickMenuLib.UI.Elements;
-using UnityEngine;
 using UnityEngine.UI;
-using static MelonLoader.MelonLogger;
+using VRC.UI.Elements;
+using static QuickMenuLib.Logger;
 
 namespace QuickMenuLib.UI
 {
@@ -21,8 +20,10 @@ namespace QuickMenuLib.UI
             try
             {
                 Msg("Setting Up Launchpad.");
-
-                var MainCategory = new QuickMenuCategory("QuickMenuLib");
+                
+                FixLaunchpadScrolling();
+                
+                var MainCategory = new QuickMenuCategory("QMLib");
 
                 QuickMenuLibMod.MainMenu = new QuickMenuPage("QuickMenuLib", false, true);
 
@@ -38,7 +39,7 @@ namespace QuickMenuLib.UI
                     catch (Exception e)
                     {
                         Error($"Failed to Initialize QuickMenu for {menu.MenuName}!");
-                        Error(e);
+                        Error(e.Message + e.StackTrace);
                     }
                 }
             } catch(Exception e)
@@ -53,7 +54,7 @@ namespace QuickMenuLib.UI
             {
                 Msg("Setting Up Target Menu.");
 
-                var MainCategory = new QuickMenuCategory("QuickMenuLib-Targets", QuickMenuExtensions.SelectedUserMenu.transform.Find("ScrollRect").GetComponent<ScrollRect>().content);
+                var MainCategory = new QuickMenuCategory("QMLib-Targets", QuickMenuExtensions.SelectedUserMenu.transform.Find("ScrollRect").GetComponent<ScrollRect>().content);
 
                 QuickMenuLibMod.TargetMenu = new QuickMenuPage("QuickMenuLib-Targets", false, true);
 
@@ -70,7 +71,7 @@ namespace QuickMenuLib.UI
                     catch (Exception e)
                     {
                         Error($"Failed to Initialize TargetMenu for {menu.MenuName}!");
-                        Error(e);
+                        Error(e.Message + e.StackTrace);
                     }
                 }
             }
@@ -84,10 +85,10 @@ namespace QuickMenuLib.UI
         {
             try
             {
-                QuickMenuLibMod.LeftWingMenu = new QuickMenuWingMenu("PepsiLib_Left");
+                QuickMenuLibMod.LeftWingMenu = new QuickMenuWingMenu("QMLib_Left");
                 new QuickMenuWingButton("Mods", "Mod Menus using QuickMenuLib", QuickMenuLibMod.LeftWingMenu.Open);
 
-                QuickMenuLibMod.RightWingMenu = new QuickMenuWingMenu("PepsiLib_Right", false);
+                QuickMenuLibMod.RightWingMenu = new QuickMenuWingMenu("QMLib_Right", false);
                 new QuickMenuWingButton("Mods", "Mod Menus using QuickMenuLib", QuickMenuLibMod.RightWingMenu.Open, null,
                     false);
 
@@ -110,7 +111,7 @@ namespace QuickMenuLib.UI
                     catch (Exception e)
                     {
                         Error($"Failed to Initialize Wing Menus for {menu.MenuName}!");
-                        Error(e);
+                        Error(e.Message + e.StackTrace);
                     }
                 }
             }
@@ -118,6 +119,26 @@ namespace QuickMenuLib.UI
             {
                 Error($"Failed to initialize Wing Menus! Exception: {e}");
             }
+        }
+        
+        private static void FixLaunchpadScrolling()
+        {
+            var dashboard = QuickMenuExtensions.GetQuickMenu.field_Public_Transform_0.Find("Window/QMParent/Menu_Dashboard").GetComponent<UIPage>();
+            var scrollRect = dashboard.GetComponentInChildren<ScrollRect>();
+            var dashboardScrollbar = scrollRect.transform.Find("Scrollbar").GetComponent<Scrollbar>();
+
+            var dashboardContent = scrollRect.content;
+            dashboardContent.GetComponent<VerticalLayoutGroup>().childControlHeight = true;
+
+            scrollRect.enabled = true;
+            scrollRect.verticalScrollbar = dashboardScrollbar;
+            scrollRect.viewport.GetComponent<RectMask2D>().enabled = true;
+
+            var PageButtons = QuickMenuExtensions.GetQuickMenu.field_Public_Transform_0.Find("Window/Page_Buttons_QM/HorizontalLayoutGroup");
+            var hlp = PageButtons.GetComponent<HorizontalLayoutGroup>();
+            var glp = PageButtons.gameObject.AddComponent<GridLayoutGroup>();
+            UnityEngine.Object.DestroyImmediate(hlp) ;
+
         }
     }
 }

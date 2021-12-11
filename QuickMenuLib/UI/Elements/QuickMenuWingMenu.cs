@@ -71,9 +71,9 @@ namespace QuickMenuLib.UI.Elements
             MyWing.field_Private_MenuStateController_0.Method_Public_Void_String_UIContext_Boolean_0(MyName);
         }
 
-        public QuickMenuWingButton AddButton(string text, string tooltip, Action onClick, Sprite sprite = null, bool arrow = true, bool background = true, bool seperator = false)
+        public QuickMenuWingButton AddButton(string text, string tooltip, Action onClick, Sprite sprite = null, bool arrow = true, bool background = true, bool separator = false)
         {
-            return new QuickMenuWingButton(text, tooltip, onClick, MyContainer, sprite, arrow, background, seperator);
+            return new QuickMenuWingButton(text, tooltip, onClick, MyContainer, sprite, arrow, background, separator);
         }
 
         public QuickMenuWingMenu AddSubMenu(string text, string tooltip, Sprite image = null, bool button = true)
@@ -89,12 +89,12 @@ namespace QuickMenuLib.UI.Elements
         private static GameObject WingButtonTemplate => QuickMenuTemplates.GetWingButtonTemplate();
 
         public QuickMenuWingButton(string text, string tooltip, Action onClick, Sprite sprite = null, bool left = true, bool arrow = true, bool background = true,
-            bool seperator = false) : base(WingButtonTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0.Find("WingMenu/ScrollRect/Viewport/VerticalLayoutGroup"), $"Button_{text}")
+            bool separator = false) : base(WingButtonTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0.Find("WingMenu/ScrollRect/Viewport/VerticalLayoutGroup"), $"Button_{text}")
         {
             var container = RectTransform.Find("Container").transform;
             container.Find("Background").gameObject.SetActive(background);
             container.Find("Icon_Arrow").gameObject.SetActive(arrow);
-            RectTransform.Find("Separator").gameObject.SetActive(seperator);
+            RectTransform.Find("Separator").gameObject.SetActive(separator);
             var iconImage = container.Find("Icon").GetComponent<Image>();
             if (sprite != null)
             {
@@ -120,12 +120,12 @@ namespace QuickMenuLib.UI.Elements
         }
 
         public QuickMenuWingButton(string text, string tooltip, Action onClick, Transform parent, Sprite sprite = null, bool arrow = true, bool background = true,
-            bool seperator = false) : base(WingButtonTemplate, parent, $"Button_{text}")
+            bool separator = false) : base(WingButtonTemplate, parent, $"Button_{text}")
         {
             var container = RectTransform.Find("Container").transform;
             container.Find("Background").gameObject.SetActive(background);
             container.Find("Icon_Arrow").gameObject.SetActive(arrow);
-            RectTransform.Find("Separator").gameObject.SetActive(seperator);
+            RectTransform.Find("Separator").gameObject.SetActive(separator);
             var iconImage = container.Find("Icon").GetComponent<Image>();
             if (sprite != null)
             {

@@ -1,41 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿#nullable enable
+using System;
 using UnhollowerBaseLib.Attributes;
-using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
-using VRC.Core;
-using VRC.DataModel;
-using static MelonLoader.MelonLogger;
 
 namespace QuickMenuLib
 {
     public static class Utils
     {
-        /// <summary>
-        /// This Method Removes the VRCPlus Banner on the Home Page of the QuickMenu. Credit to tetra-fox
-        /// https://github.com/tetra-fox/VRCMods/blob/master/AdBlocker/AdBlockerMod.cs
-        /// </summary>
-        public static void RemoveVrcPlus()
-        {
-            try
-            {
-                GameObject carousel = FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Carousel_Banners");
-                GameObject vrcPlus = FindInactive("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/VRC+_Banners");
-
-                GameObject.DestroyImmediate(carousel);
-                GameObject.DestroyImmediate(vrcPlus);
-            }
-            catch (Exception e) 
-            { 
-                //A Failure here is not catastrophic. Other Mods may completely remove the Carousel Banners before this method gets called by a ModMenu.
-            }
-        }
-        
         // https://github.com/knah/
         public static GameObject? FindInactive(string path)
         {
-            var split = path.Split(new char[]{'/'}, 2);
+            var split = path.Split(new[]{'/'}, 2);
             var rootObject = GameObject.Find($"/{split[0]}")?.transform;
             if (rootObject == null) return null;
             return Transform.FindRelativeTransformWithPath(rootObject, split[1], false)?.gameObject;

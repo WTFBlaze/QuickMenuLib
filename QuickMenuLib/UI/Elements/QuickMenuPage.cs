@@ -126,7 +126,7 @@ namespace QuickMenuLib.UI.Elements
             return new QuickMenuSlider(text, onValueChanged, MyContainer, minValue, maxValue);
         }
 
-        public QuickMenuToggleButton AddToggle(string name, string text, string tooltip, Action<bool> onToggle, bool defaultValue = false)
+        public QuickMenuToggleButton AddToggle(string text, string tooltip, Action<bool> onToggle, bool defaultValue = false)
         {
             return new QuickMenuToggleButton(text, tooltip, onToggle, MyContainer, defaultValue);
         }
@@ -138,9 +138,9 @@ namespace QuickMenuLib.UI.Elements
             return menu;
         }
 
-        public QuickMenuCategory AddMenuCategory(string name, string text)
+        public QuickMenuCategory AddMenuCategory(string text, bool toggleable = false)
         {
-            return new QuickMenuCategory(text, MyContainer, null);
+            return new QuickMenuCategory(text, MyContainer, toggleable);
         }
     }
 }
