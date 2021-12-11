@@ -133,12 +133,6 @@ namespace QuickMenuLib.UI
             scrollRect.enabled = true;
             scrollRect.verticalScrollbar = dashboardScrollbar;
             scrollRect.viewport.GetComponent<RectMask2D>().enabled = true;
-
-            var PageButtons = QuickMenuExtensions.GetQuickMenu.field_Public_Transform_0.Find("Window/Page_Buttons_QM/HorizontalLayoutGroup");
-            var hlp = PageButtons.GetComponent<HorizontalLayoutGroup>();
-            var glp = PageButtons.gameObject.AddComponent<GridLayoutGroup>();
-            UnityEngine.Object.DestroyImmediate(hlp) ;
-
         }
     }
 }
