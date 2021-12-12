@@ -7,7 +7,7 @@ namespace QuickMenuLib
 {
     public static class Utils
     {
-        public static System.Random random = new();
+        public static System.Random random = new System.Random();
 
         public static string RandomNumbers()
         {

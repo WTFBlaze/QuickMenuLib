@@ -57,7 +57,7 @@ namespace QuickMenuLib.UI.Elements
         public QuickMenuHeader MyHeader;
         public QuickMenuButtonContainer MyButtonContainer;
 
-        public readonly List<QuickMenuPage> SubPages = new();
+        public readonly List<QuickMenuPage> SubPages = new List<QuickMenuPage>();
 
         public QuickMenuCategory(string title, Transform parent = null, bool expandable = false, int? siblingIndex = null)
         {
