@@ -76,6 +76,11 @@ namespace QuickMenuLib.UI.Elements
             return new QuickMenuWingButton(text, tooltip, onClick, MyContainer, sprite, arrow, background, separator);
         }
 
+        public QuickMenuWingToggleButton AddToggleButton(string onText, Action onAction, string offText, Action offAction, string tooltip, bool defaultState = false, Sprite img = null)
+        {
+            return new QuickMenuWingToggleButton(onText, onAction, offText, offAction, tooltip, defaultState, img);
+        }
+        
         public QuickMenuWingMenu AddSubMenu(string text, string tooltip, Sprite image = null, bool button = true)
         {
             var menu = new QuickMenuWingMenu(text, MyWing.field_Public_WingPanel_0 == Wing.WingPanel.Left);
@@ -87,6 +92,7 @@ namespace QuickMenuLib.UI.Elements
     public class QuickMenuWingButton : UIElement
     {
         private static GameObject WingButtonTemplate => QuickMenuTemplates.GetWingButtonTemplate();
+        protected TextMeshProUGUI buttonText;
 
         public QuickMenuWingButton(string text, string tooltip, Action onClick, Sprite sprite = null, bool left = true, bool arrow = true, bool background = true,
             bool separator = false) : base(WingButtonTemplate, (left ? QuickMenuExtensions.LeftWing : QuickMenuExtensions.RightWing).field_Public_RectTransform_0.Find("WingMenu/ScrollRect/Viewport/VerticalLayoutGroup"), $"Button_{text}")
@@ -106,9 +112,9 @@ namespace QuickMenuLib.UI.Elements
                 iconImage.gameObject.SetActive(false);
             }
 
-            var tmp = container.GetComponentInChildren<TextMeshProUGUI>();
-            tmp.text = text;
-            tmp.richText = true;
+            buttonText = container.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.text = text;
+            buttonText.richText = true;
 
             var button = GameObject.GetComponent<Button>();
             button.onClick = new Button.ButtonClickedEvent();
@@ -137,9 +143,9 @@ namespace QuickMenuLib.UI.Elements
                 iconImage.gameObject.SetActive(false);
             }
 
-            var tmp = container.GetComponentInChildren<TextMeshProUGUI>();
-            tmp.text = text;
-            tmp.richText = true;
+            buttonText = container.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.text = text;
+            buttonText.richText = true;
 
             var button = GameObject.GetComponent<Button>();
             button.onClick = new Button.ButtonClickedEvent();
@@ -148,6 +154,46 @@ namespace QuickMenuLib.UI.Elements
             var uiTooltip = GameObject.GetComponent<VRC.UI.Elements.Tooltips.UiTooltip>();
             uiTooltip.field_Public_String_0 = tooltip;
             uiTooltip.field_Public_String_1 = tooltip;
+        }
+
+        public void SetButtonText(string newText)
+        {
+            buttonText.text = newText;
+        }
+    }
+
+    public class QuickMenuWingToggleButton
+    {
+        protected QuickMenuWingButton Button;
+        protected bool CurrentState;
+        protected Action onAction;
+        protected Action offAction;
+        protected string onText;
+        protected string offText;
+
+        public QuickMenuWingToggleButton(string OnText, Action OnAction, string OffText, Action OffAction, string tooltip, bool defaultState = false, Sprite img = null)
+        {
+            CurrentState = defaultState;
+            onAction = OnAction;
+            offAction = OffAction;
+            onText = OnText;
+            offText = OffText;
+            Button = new QuickMenuWingButton(defaultState ? onText : offText, tooltip, ProcessClick, img);
+        }
+
+        private void ProcessClick()
+        {
+            CurrentState = !CurrentState;
+            if (CurrentState)
+            {
+                onAction.Invoke();
+                Button.SetButtonText(onText);
+            }
+            else
+            {
+                offAction.Invoke();
+                Button.SetButtonText(offText);
+            }
         }
     }
 }

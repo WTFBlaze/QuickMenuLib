@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using PepsiLib.UI.Elements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -140,7 +141,12 @@ namespace QuickMenuLib.UI.Elements
 
         public QuickMenuCategory AddMenuCategory(string text)
         {
-            return new QuickMenuCategory(text, MyContainer, false);
+            return new QuickMenuCategory(text, MyContainer);
+        }
+
+        public QuickMenuInfoPanel AddInfoPanel(float panelHeightSize, string panelText)
+        {
+            return new QuickMenuInfoPanel(MyContainer, panelHeightSize, panelText);
         }
     }
 }

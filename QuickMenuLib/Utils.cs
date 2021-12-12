@@ -7,6 +7,13 @@ namespace QuickMenuLib
 {
     public static class Utils
     {
+        public static System.Random random = new();
+
+        public static string RandomNumbers()
+        {
+            return random.Next(1000, 9999).ToString();
+        }
+        
         // https://github.com/knah/
         public static GameObject? FindInactive(string path)
         {

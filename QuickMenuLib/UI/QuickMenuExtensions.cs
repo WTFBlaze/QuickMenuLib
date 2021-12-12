@@ -90,6 +90,7 @@ namespace QuickMenuLib.UI
         private static GameObject _sliderReference;
         private static GameObject _foldoutHeaderReference;
         private static GameObject _foldoutContainerReference;
+        private static GameObject _infoPanelReference;
 
         internal static GameObject GetSliderPrefab()
         {
@@ -232,6 +233,16 @@ namespace QuickMenuLib.UI
             }
 
             return _modalReference;
+        }
+        
+        internal static GameObject GetInfoPanelTemplate()
+        {
+            if (_infoPanelReference == null)
+            {
+                _infoPanelReference = Utils.FindInactive("MenuContent/Popups/PerformanceSettingsPopup/Popup/Pages/Page_LimitAvatarPerformance/Tooltip_Details");
+            }
+
+            return _infoPanelReference;
         }
     }
 }
