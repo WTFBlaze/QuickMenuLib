@@ -57,7 +57,7 @@ namespace QuickMenuLib.UI.Elements
         public QuickMenuHeader MyHeader;
         public QuickMenuButtonContainer MyButtonContainer;
 
-        private readonly List<QuickMenuPage> SubPages = new List<QuickMenuPage>();
+        public readonly List<QuickMenuPage> SubPages = new List<QuickMenuPage>();
 
         public QuickMenuCategory(string title, Transform parent = null, bool expandable = false, int? siblingIndex = null)
         {
@@ -86,7 +86,7 @@ namespace QuickMenuLib.UI.Elements
             return button;
         }
 
-        public QuickMenuToggleButton AddToggle(string text, string tooltip, System.Action<bool> onToggle, bool defaultPosition = false)
+        public QuickMenuToggleButton AddToggle(string text, string tooltip, Action<bool> onToggle, bool defaultPosition = false)
         {
             var toggle = new QuickMenuToggleButton(text, tooltip, onToggle, MyButtonContainer.RectTransform, defaultPosition);
             return toggle;
