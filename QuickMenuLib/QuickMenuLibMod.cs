@@ -59,11 +59,6 @@ namespace QuickMenuLib
                 yield return null;
             code();
         }
-        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
-        {
-            LoggerInstance.Msg("Hi");
-            base.OnSceneWasInitialized(buildIndex, sceneName);
-        }
     }
 
     public static class Logger

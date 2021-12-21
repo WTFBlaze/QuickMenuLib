@@ -58,8 +58,9 @@ namespace QuickMenuLib.UI.Elements
             var uiPage = GameObject.GetComponent<UIPage>();
             uiPage.name = $"WingMenu_{text}";
             uiPage.field_Public_String_0 = $"WingMenu_{text}";
-            uiPage.field_Public_Boolean_0 = true;
-            uiPage.field_Private_MenuStateController_0 = MyWing.field_Private_MenuStateController_0;
+            uiPage.field_Private_Boolean_0 = false;
+            uiPage.field_Public_Boolean_1 = false;
+            uiPage.field_Private_MenuStateController_0 = MyWing.GetComponent<MenuStateController>();
             uiPage.field_Private_List_1_UIPage_0 = new Il2CppSystem.Collections.Generic.List<UIPage>();
             uiPage.field_Private_List_1_UIPage_0.Add(uiPage);
 
@@ -78,7 +79,7 @@ namespace QuickMenuLib.UI.Elements
 
         public QuickMenuWingToggleButton AddToggleButton(string onText, Action onAction, string offText, Action offAction, string tooltip, bool defaultState = false, Sprite img = null)
         {
-            return new QuickMenuWingToggleButton(onText, onAction, offText, offAction, tooltip, defaultState, img);
+            return new QuickMenuWingToggleButton(onText, onAction, offText, offAction, MyContainer, tooltip, defaultState, img);
         }
         
         public QuickMenuWingMenu AddSubMenu(string text, string tooltip, Sprite image = null, bool button = true)
@@ -171,16 +172,26 @@ namespace QuickMenuLib.UI.Elements
         protected string onText;
         protected string offText;
 
-        public QuickMenuWingToggleButton(string OnText, Action OnAction, string OffText, Action OffAction, string tooltip, bool defaultState = false, Sprite img = null)
+        public QuickMenuWingToggleButton(string OnText, Action OnAction, string OffText, Action OffAction, Transform parent, string tooltip, bool left = true, bool defaultState = false, Sprite img = null)
         {
             CurrentState = defaultState;
             onAction = OnAction;
             offAction = OffAction;
-            onText = OnText;
-            offText = OffText;
-            Button = new QuickMenuWingButton(defaultState ? onText : offText, tooltip, ProcessClick, img);
+            onText = $"<color=green>{OnText}</color>";
+            offText = $"<color=red>{OffText}</color>";
+            Button = new QuickMenuWingButton(defaultState ? onText : offText, tooltip, ProcessClick, parent, img, left);
         }
-
+        
+        /// <summary>
+        /// This Method is meant for updating button state without invoking its logic. This is useful for when a Keybind does the same thing as a button.
+        /// </summary>
+        /// <param name="value"></param>
+        public void UpdateValue(bool value)
+        {
+            CurrentState = value;
+            Button.SetButtonText(value ? onText : offText);
+        }
+        
         private void ProcessClick()
         {
             CurrentState = !CurrentState;
