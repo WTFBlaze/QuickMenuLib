@@ -87,10 +87,12 @@ namespace QuickMenuLib.UI
         private static GameObject _wingMenuReference;
         private static GameObject _wingButtonReference;
         private static Sprite _toggleOnReference;
+        private static Sprite _toggleOffReference;
         private static GameObject _sliderReference;
         private static GameObject _foldoutHeaderReference;
         private static GameObject _foldoutContainerReference;
         private static GameObject _infoPanelReference;
+        private static GameObject _imageButtonReference;
 
         internal static GameObject GetSliderPrefab()
         {
@@ -192,6 +194,18 @@ namespace QuickMenuLib.UI
             return _singleButtonReference;
         }
 
+        internal static GameObject GetImageButtonTemplate()
+        {
+            if (_imageButtonReference == null)
+            {
+                _imageButtonReference = Utils.FindInactive(
+                    "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Here/ScrollRect/Viewport/VerticalLayoutGroup/QM_Grid_UsersInWorld/Cell_QM_User(Clone)");
+            }
+
+            return _imageButtonReference;
+            
+        }
+
         internal static GameObject GetToggleButtonTemplate()
         {
             if (_toggleButtonReference == null)
@@ -213,6 +227,18 @@ namespace QuickMenuLib.UI
             }
 
             return _toggleOnReference;
+        }
+
+        internal static Sprite GetToggleOffIconTemplate()
+        {
+            if (_toggleOffReference == null)
+            {
+                _toggleOffReference = Utils.FindInactive(
+                        "UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Settings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/Buttons_UI_Elements_Row_2/Button_ToggleTooltips/Icon_Off")
+                    .GetComponent<Image>().sprite;
+            }
+
+            return _toggleOffReference;
         }
 
         internal static GameObject GetMenuTemplate()

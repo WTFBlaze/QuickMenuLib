@@ -20,7 +20,7 @@ namespace QuickMenuLib.UI.Elements
 
         private readonly Slider MySlider;
 
-        public QuickMenuSlider(string text, Action<float> onValueChanged, Transform parent, float minValue = 0, float maxValue = 1) : base(SliderTemplate, parent, $"Slider_{text}")
+        public QuickMenuSlider(string text, string tooltip, Action<float> onValueChanged, Transform parent, float minValue = 0, float maxValue = 1) : base(SliderTemplate, parent, $"Slider_{text}")
         {
             MyText = GameObject.GetComponentInChildren<TextMeshProUGUI>();
             MyText.text = text;
@@ -31,6 +31,10 @@ namespace QuickMenuLib.UI.Elements
             MySlider.maxValue = maxValue;
             MySlider.onValueChanged = new Slider.SliderEvent();
             MySlider.onValueChanged.AddListener(new Action<float>(onValueChanged));
+            
+            var uiTooltip = GameObject.GetComponent<VRC.UI.Elements.Tooltips.UiTooltip>();
+            uiTooltip.field_Public_String_0 = tooltip;
+            uiTooltip.field_Public_String_1 = tooltip;
         }
     }
 }

@@ -57,6 +57,12 @@ namespace QuickMenuLib
                 yield return null;
             while (QuickMenuExtensions.MenuStateController == null) 
                 yield return null;
+            //Don't create anything if nobody likes us
+            if (ModMenus.Count == 0)
+            {
+                LoggerInstance.Msg("No Mod Menus found. Not creating pages.");
+                yield break;
+            }
             code();
         }
     }

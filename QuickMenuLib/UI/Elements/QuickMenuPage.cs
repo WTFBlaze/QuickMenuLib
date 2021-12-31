@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using PepsiLib.UI.Elements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,7 +53,8 @@ namespace QuickMenuLib.UI.Elements
             MyPage = GameObject.GetComponent<UIPage>();
             MyPage.name = $"QuickMenu{text}";
             MyPage.field_Public_String_0 = $"QuickMenu{text}";
-            MyPage.field_Private_Boolean_1 = true;
+            MyPage.field_Private_Boolean_0 = false;
+            MyPage.field_Private_Boolean_1 = false;
             MyPage.field_Private_MenuStateController_0 = QuickMenuExtensions.MenuStateController;
             MyPage.field_Private_List_1_UIPage_0 = new Il2CppSystem.Collections.Generic.List<UIPage>();
             MyPage.field_Private_List_1_UIPage_0.Add(MyPage);
@@ -122,9 +122,9 @@ namespace QuickMenuLib.UI.Elements
             return new QuickMenuButton(text, tooltip, onClick, MyContainer, image);
         }
 
-        public QuickMenuSlider AddSlider(string text, Action<float> onValueChanged, float minValue = 0, float maxValue = 1)
+        public QuickMenuSlider AddSlider(string text, string tooltip, Action<float> onValueChanged, float minValue = 0, float maxValue = 1)
         {
-            return new QuickMenuSlider(text, onValueChanged, MyContainer, minValue, maxValue);
+            return new QuickMenuSlider(text, tooltip, onValueChanged, MyContainer, minValue, maxValue);
         }
 
         public QuickMenuToggleButton AddToggle(string text, string tooltip, Action<bool> onToggle, bool defaultValue = false)
@@ -142,11 +142,6 @@ namespace QuickMenuLib.UI.Elements
         public QuickMenuCategory AddMenuCategory(string text)
         {
             return new QuickMenuCategory(text, MyContainer);
-        }
-
-        public QuickMenuInfoPanel AddInfoPanel(float panelHeightSize, string panelText)
-        {
-            return new QuickMenuInfoPanel(MyContainer, panelHeightSize, panelText);
         }
     }
 }

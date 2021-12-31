@@ -171,15 +171,19 @@ namespace QuickMenuLib.UI.Elements
         protected Action offAction;
         protected string onText;
         protected string offText;
-
-        public QuickMenuWingToggleButton(string OnText, Action OnAction, string OffText, Action OffAction, Transform parent, string tooltip, bool left = true, bool defaultState = false, Sprite img = null)
+        protected Sprite onIcon = QuickMenuTemplates.GetToggleOnIconTemplate();
+        protected Sprite offIcon = QuickMenuTemplates.GetToggleOffIconTemplate();
+        
+        public QuickMenuWingToggleButton(string OnText, Action OnAction, string OffText, Action OffAction, Transform parent, string tooltip, bool left = true, bool defaultState = false)
         {
             CurrentState = defaultState;
+            var img = CurrentState ? onIcon : offIcon;
             onAction = OnAction;
             offAction = OffAction;
             onText = $"<color=green>{OnText}</color>";
             offText = $"<color=red>{OffText}</color>";
             Button = new QuickMenuWingButton(defaultState ? onText : offText, tooltip, ProcessClick, parent, img, left);
+            UpdateValue(CurrentState);
         }
         
         /// <summary>
@@ -189,6 +193,7 @@ namespace QuickMenuLib.UI.Elements
         public void UpdateValue(bool value)
         {
             CurrentState = value;
+            Button.RectTransform.Find("Container").transform.Find("Icon").GetComponent<Image>().sprite = CurrentState ? onIcon : offIcon;
             Button.SetButtonText(value ? onText : offText);
         }
         
@@ -198,11 +203,15 @@ namespace QuickMenuLib.UI.Elements
             if (CurrentState)
             {
                 onAction.Invoke();
+                Button.RectTransform.Find("Container").transform
+                    .Find("Icon").GetComponent<Image>().sprite = onIcon;
                 Button.SetButtonText(onText);
             }
             else
             {
                 offAction.Invoke();
+                Button.RectTransform.Find("Container").transform
+                    .Find("Icon").GetComponent<Image>().sprite = offIcon;
                 Button.SetButtonText(offText);
             }
         }

@@ -122,7 +122,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Elements\QuickMenuButton.cs" />
     <Compile Include="UI\Elements\QuickMenuCategory.cs" />
-    <Compile Include="UI\Elements\QuickMenuInfoPanel.cs" />
     <Compile Include="UI\Elements\QuickMenuPage.cs" />
     <Compile Include="UI\Elements\QuickMenuSlider.cs" />
     <Compile Include="UI\Elements\QuickMenuTabButton.cs" />
