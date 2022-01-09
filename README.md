@@ -114,6 +114,9 @@ The Pages QuickMenuLib creates for itself are exposed to your Mod as well.
 ```
 
 ## Planned
+* Settings
+* Expose every page
+* UI 2.0: integrate with big menu when it comes out
 * Proper Documentation Page
 
 ## Credits
