@@ -55,7 +55,7 @@ namespace QuickMenuLib.UI.Elements
             MyPage.field_Public_String_0 = $"QuickMenu{text}";
             MyPage.field_Private_Boolean_0 = false;
             MyPage.field_Private_Boolean_1 = false;
-            MyPage.field_Private_MenuStateController_0 = QuickMenuExtensions.MenuStateController;
+            MyPage.field_Protected_MenuStateController_0 = QuickMenuExtensions.MenuStateController;
             MyPage.field_Private_List_1_UIPage_0 = new Il2CppSystem.Collections.Generic.List<UIPage>();
             MyPage.field_Private_List_1_UIPage_0.Add(MyPage);
 

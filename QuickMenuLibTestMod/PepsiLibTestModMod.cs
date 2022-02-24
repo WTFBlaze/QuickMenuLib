@@ -1,4 +1,5 @@
 ﻿using MelonLoader;
+using QuickMenuLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace PepsiLibTestMod
 
         public override void OnApplicationStart()
         {
-            PepsiLib.PepsiLibMod.RegisterModMenu(new MyModMenu());
+            QuickMenuLibMod.RegisterModMenu(new MyModMenu());
         }
     }
 }

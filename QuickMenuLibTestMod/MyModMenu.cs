@@ -1,5 +1,5 @@
 ﻿using MelonLoader;
-using PepsiLib;
+using QuickMenuLib;
 using VRC.Core;
 
 namespace PepsiLibTestMod
@@ -9,13 +9,13 @@ namespace PepsiLibTestMod
         public override string MenuName => "TestModMenu";
         public override void OnQuickMenuInitialized()
         {
-            var category = MyModMenu.AddMenuCategory("TestModMenuCat", "Testing Stuff");
+            var category = MyModMenu.AddMenuCategory("TestModMenuCat");
             category.AddButton("Test", "This is a test using QuickMenuLib!", () =>
             {
                 MelonLogger.Msg("Test Button!");
             });
 
-            MyModMenu.AddSlider("FunnySlider", "Test", (num) => MelonLogger.Msg(num));
+            MyModMenu.AddSlider("FunnySlider", "Slider Test", (num) => MelonLogger.Msg(num));
         }
         public override void OnWingMenuLeftInitialized()
         {

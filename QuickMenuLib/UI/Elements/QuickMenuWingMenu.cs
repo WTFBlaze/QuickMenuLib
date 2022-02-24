@@ -60,7 +60,7 @@ namespace QuickMenuLib.UI.Elements
             uiPage.field_Public_String_0 = $"WingMenu_{text}";
             uiPage.field_Private_Boolean_0 = false;
             uiPage.field_Public_Boolean_1 = false;
-            uiPage.field_Private_MenuStateController_0 = MyWing.GetComponent<MenuStateController>();
+            uiPage.field_Protected_MenuStateController_0 = MyWing.GetComponent<MenuStateController>();
             uiPage.field_Private_List_1_UIPage_0 = new Il2CppSystem.Collections.Generic.List<UIPage>();
             uiPage.field_Private_List_1_UIPage_0.Add(uiPage);
 
