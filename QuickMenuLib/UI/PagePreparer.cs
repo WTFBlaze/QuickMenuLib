@@ -23,7 +23,7 @@ namespace QuickMenuLib.UI
                 
                 FixLaunchpadScrolling();
                 
-                var MainCategory = new QuickMenuCategory("QMLib");
+                var MainCategory = new QuickMenuCategory("QMLib", null, null, false);
 
                 QuickMenuLibMod.MainMenu = new QuickMenuPage("QuickMenuLib", false, true);
 
@@ -54,7 +54,7 @@ namespace QuickMenuLib.UI
             {
                 Msg("Setting Up Target Menu.");
 
-                var MainCategory = new QuickMenuCategory("QMLib-Targets", QuickMenuExtensions.SelectedUserMenu.transform.Find("ScrollRect").GetComponent<ScrollRect>().content);
+                var MainCategory = new QuickMenuCategory("QMLib-Targets", QuickMenuExtensions.SelectedUserMenu.transform.Find("ScrollRect").GetComponent<ScrollRect>().content, null, false);
 
                 QuickMenuLibMod.TargetMenu = new QuickMenuPage("QuickMenuLib-Targets", false, true);
 

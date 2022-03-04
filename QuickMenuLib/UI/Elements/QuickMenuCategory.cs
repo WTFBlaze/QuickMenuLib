@@ -14,26 +14,23 @@ namespace QuickMenuLib.UI.Elements
     /// </summary>
     public class QuickMenuHeader : UIElement
     {
-        private static GameObject HeaderTemplate(bool expandable) => expandable ? QuickMenuTemplates.GetFoldoutHeaderTemplate() : QuickMenuTemplates.GetHeaderTemplate();
+        private static GameObject HeaderTemplate() => QuickMenuTemplates.GetHeaderTemplate();
 
-        public QuickMenuHeader(string title, Transform parent, bool expandable = false) : base(HeaderTemplate(expandable), (parent == null ? HeaderTemplate(expandable).transform.parent : parent), expandable ? $"QM_Foldout_{title}" : $"Header_{title}")
+        public QuickMenuHeader(string title, Transform parent) : base(HeaderTemplate(), (parent == null ? HeaderTemplate().transform.parent : parent), $"Header_{title}")
         {
             var tmp = GameObject.GetComponentInChildren<TextMeshProUGUI>();
             tmp.text = title;
             tmp.richText = true;
 
-            if (expandable)
-            {
-                GameObject.GetComponentInChildren<Toggle>().onValueChanged = new Toggle.ToggleEvent();
-            }
-            
+            tmp.transform.parent.GetComponent<HorizontalLayoutGroup>().childControlWidth = true;
+
         }
     }
     public class QuickMenuButtonContainer : UIElement
     {
         private static GameObject ButtonRowTemplate => QuickMenuTemplates.GetButtonRowTemplate();
 
-        public QuickMenuButtonContainer(string name, Transform parent = null) : base(ButtonRowTemplate, (parent == null ? ButtonRowTemplate.transform.parent : parent), $"Buttons_{name}")
+        public QuickMenuButtonContainer(string name, Transform parent = null, bool alignLeft = true) : base(ButtonRowTemplate, (parent == null ? ButtonRowTemplate.transform.parent : parent), $"Buttons_{name}")
         {
             foreach (var button in RectTransform)
             {
@@ -46,9 +43,16 @@ namespace QuickMenuLib.UI.Elements
             }
 
             var gridLayout = GameObject.GetComponent<GridLayoutGroup>();
+            if (alignLeft)
+                gridLayout.childAlignment = TextAnchor.UpperLeft;
 
             gridLayout.padding.top = 8;
             gridLayout.padding.left = 64;
+
+            if (!alignLeft)
+            {
+                gridLayout.padding.left = 56;
+            }
         }
     }
 
@@ -59,19 +63,10 @@ namespace QuickMenuLib.UI.Elements
 
         public readonly List<QuickMenuPage> SubPages = new List<QuickMenuPage>();
 
-        public QuickMenuCategory(string title, Transform parent = null, bool expandable = false, int? siblingIndex = null)
+        public QuickMenuCategory(string title, Transform parent = null, int? siblingIndex = null, bool alignLeft = true)
         {
-            MyHeader = new QuickMenuHeader(title, parent, expandable);
-            MyButtonContainer = new QuickMenuButtonContainer(title, parent);
-
-            if (expandable)
-            {
-                var toggle = MyHeader.GameObject.GetComponentInChildren<Toggle>();
-                toggle.onValueChanged.AddListener(new Action<bool>(b =>
-                {
-                    MyButtonContainer.GameObject.SetActive(b);
-                }));
-            }
+            MyHeader = new QuickMenuHeader(title, parent);
+            MyButtonContainer = new QuickMenuButtonContainer(title, parent, alignLeft);
             
             if (siblingIndex != null)
             {

@@ -1,9 +1,16 @@
-﻿using System;
+﻿using Il2CppSystem.Reflection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using UnhollowerBaseLib.Attributes;
+using UnhollowerRuntimeLib;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 using VRC.UI.Elements.Controls;
+
+using static QuickMenuLib.QuickMenuLibMod;
 
 using Object = UnityEngine.Object;
 
@@ -74,7 +81,7 @@ namespace QuickMenuLib.UI.Elements
         private static Sprite OnIconSprite => QuickMenuTemplates.GetToggleOnIconTemplate();
 
         private readonly Toggle MyToggle;
-        private readonly ToggleIcon MyToggleIcon;
+        private object MyToggleIcon;
 
         private bool LastValue;
 
@@ -83,11 +90,11 @@ namespace QuickMenuLib.UI.Elements
             var iconOn = RectTransform.Find("Icon_On").GetComponent<Image>();
             iconOn.sprite = OnIconSprite;
 
-            MyToggleIcon = GameObject.GetComponent<ToggleIcon>();
+            FindToggleIcon();
 
             MyToggle = GameObject.GetComponent<Toggle>();
             MyToggle.onValueChanged = new Toggle.ToggleEvent();
-            MyToggle.onValueChanged.AddListener(new Action<bool>(MyToggleIcon.Method_Private_Void_Boolean_PDM_0));
+            MyToggle.onValueChanged.AddListener(new Action<bool>(OnValueChanged));
             MyToggle.onValueChanged.AddListener(new Action<bool>(onToggle));
 
             var tmp = GameObject.GetComponentInChildren<TextMeshProUGUI>();
@@ -107,6 +114,92 @@ namespace QuickMenuLib.UI.Elements
             edl.OnEnableEvent += UpdateToggle;
         }
 
+        //https://github.com/RequiDev/ReMod.Core/commit/1d689a3f52ddc35287059d2adc4eed14822aa6fd
+        private void FindToggleIcon()
+        {
+            var components = new Il2CppSystem.Collections.Generic.List<Component>();
+            GameObject.GetComponents(components);
+
+            foreach (var c in components)
+            {
+                var il2CppType = c.GetIl2CppType();
+                var il2CppFields = il2CppType.GetFields(BindingFlags.Public | BindingFlags.Instance);
+                if (il2CppFields.Count != 1)
+                    continue;
+
+                if (!il2CppFields.Any(t => t.IsPublic && t.FieldType == Il2CppType.Of<Toggle>()))
+                    continue;
+
+                var realType = GetUnhollowedType(il2CppType);
+                if (realType == null)
+                {
+                    Logger.Error("SHITS FUCKED!");
+                    break;
+                }
+                MyToggleIcon = Activator.CreateInstance(realType, c.Pointer);
+                break;
+            }
+        }
+
+        private static readonly Dictionary<string, Type> DeobfuscatedTypes = new Dictionary<string, Type>();
+        private static readonly Dictionary<string, string> ReverseDeobCache = new Dictionary<string, string>();
+
+        private static void BuildDeobfuscationCache()
+        {
+            if (DeobfuscatedTypes.Count > 0)
+                return;
+
+            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var type in asm.TryGetTypes())
+                    TryCacheDeobfuscatedType(type);
+            }
+        }
+
+        private static void TryCacheDeobfuscatedType(Type type)
+        {
+            try
+            {
+                if (!type.CustomAttributes.Any())
+                    return;
+
+                foreach (var att in type.CustomAttributes)
+                {
+                    // Thanks to Slaynash for this
+
+                    if (att.AttributeType == typeof(ObfuscatedNameAttribute))
+                    {
+                        string obfuscatedName = att.ConstructorArguments[0].Value.ToString();
+
+                        DeobfuscatedTypes.Add(obfuscatedName, type);
+                        ReverseDeobCache.Add(type.FullName, obfuscatedName);
+                    }
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        public static Type GetUnhollowedType(Il2CppSystem.Type cppType)
+        {
+            if (DeobfuscatedTypes.Count == 0)
+            {
+                BuildDeobfuscationCache();
+            }
+
+            var fullname = cppType.FullName;
+
+            if (DeobfuscatedTypes.TryGetValue(fullname, out var deob))
+                return deob;
+
+            if (fullname.StartsWith("System."))
+                fullname = $"Il2Cpp{fullname}";
+
+            return null;
+        }
+
 
         public void Toggle(bool value, bool callback = true)
         {
@@ -116,7 +209,27 @@ namespace QuickMenuLib.UI.Elements
 
         private void UpdateToggle()
         {
-            MyToggleIcon.Method_Private_Void_Boolean_PDM_0(LastValue);
+            OnValueChanged(LastValue);
+        }
+
+        private List<Action<bool>> _onValueChanged;
+
+        private void OnValueChanged(bool arg0)
+        {
+            if (_onValueChanged == null)
+            {
+                _onValueChanged = new List<Action<bool>>();
+                foreach (var methodInfo in MyToggleIcon.GetType().GetMethods().Where(m =>
+                             m.Name.StartsWith("Method_Private_Void_Boolean_PDM_") && Utils.CheckMethod(m, "Toggled")))
+                {
+                    _onValueChanged.Add((Action<bool>)Delegate.CreateDelegate(typeof(Action<bool>), MyToggleIcon, methodInfo));
+                }
+            }
+
+            foreach (var onValueChanged in _onValueChanged)
+            {
+                onValueChanged(arg0);
+            }
         }
     }
 }

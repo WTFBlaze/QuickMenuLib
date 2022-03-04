@@ -1,6 +1,10 @@
 ﻿#nullable enable
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnhollowerBaseLib.Attributes;
+using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 
 namespace QuickMenuLib
@@ -23,6 +27,26 @@ namespace QuickMenuLib
             return Transform.FindRelativeTransformWithPath(rootObject, split[1], false)?.gameObject;
         }
 
+        public static bool CheckMethod(MethodInfo method, string match)
+        {
+            try
+            {
+                foreach (var instance in XrefScanner.XrefScan(method))
+                {
+                    if (instance.Type == XrefType.Global && instance.ReadAsObject().ToString().Contains(match))
+                        return true;
+                }
+
+                return false;
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return false;
+        }
+
     }
     
 
@@ -37,5 +61,32 @@ namespace QuickMenuLib
         public EnableDisableListener(IntPtr obj) : base(obj) { }
         public void OnEnable() => OnEnableEvent?.Invoke();
         public void OnDisable() => OnDisableEvent?.Invoke();
+    }
+
+    //https://github.com/RequiDev/ReMod.Core/blob/1d689a3f52ddc35287059d2adc4eed14822aa6fd/AssemblyExtensions.cs#L12
+    internal static class AssemblyExtensions
+    {
+        public static IEnumerable<Type> TryGetTypes(this Assembly asm)
+        {
+            try
+            {
+                return asm.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                try
+                {
+                    return asm.GetExportedTypes();
+                }
+                catch
+                {
+                    return e.Types.Where(t => t != null);
+                }
+            }
+            catch
+            {
+                return Enumerable.Empty<Type>();
+            }
+        }
     }
 }
